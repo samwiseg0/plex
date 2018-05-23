@@ -10,8 +10,8 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 # noinspection PyUnresolvedReferences
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-discord_user = "Neron"
-discord_url = "https://discordapp.com/api/webhooks/448743221779103744/II6FSgf7ww8PdWNtkPpA0Ey9j4bn1vITzLdp1dLtQQE8a06nYKts3jcForNX6z363cMV/slack"
+discord_user = "User"
+discord_url = "https://discordapp.com/api/webhooks/XXXXXXXXXXX/XXXXXXXXX/slack"
 discord_headers = {'content-type': 'application/json'}
 
 if not os.path.exists("/tmp/plex_server_version.txt"):

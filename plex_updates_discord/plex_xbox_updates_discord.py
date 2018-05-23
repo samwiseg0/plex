@@ -14,8 +14,8 @@ discussID = 130706
 type = "xbox_one"
 message_color = "#107c10"
 
-discord_user = "Neron"
-discord_url = "https://discordapp.com/api/webhooks/448895843819454477/qOU7Ph61PNURqzwhmSTT9-gK8-Ue8V3tl7VAVpEhWLU_x6INJzjZptVoHAT5MtXj2tsx/slack"
+discord_user = "User"
+discord_url = "https://discordapp.com/api/webhooks/XXXXXXXXXXX/XXXXXXXXX/slack"
 discord_headers = {'content-type': 'application/json'}
 
 if not os.path.exists("/tmp/plex_{}_last_post.txt".format(type)):
