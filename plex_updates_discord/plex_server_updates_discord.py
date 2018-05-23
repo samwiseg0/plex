@@ -34,7 +34,7 @@ items_fixed_norm = items_fixed.replace('\r\n', '\n\n')
 
 try:
     prev_version_file_read = open("/tmp/plex_server_version.txt","r")
-    prev_version = int(prev_version_file_read.read())
+    prev_version = prev_version_file_read.read()
     prev_version_file_read.close()
 except ValueError:
     prev_version_file = open("/tmp/plex_server_version.txt","w+")
@@ -42,7 +42,7 @@ except ValueError:
     prev_version_file.close()
 
 prev_version_file_read = open("/tmp/plex_server_version.txt","r")
-prev_version = int(prev_version_file_read.read())
+prev_version = prev_version_file_read.read()
 prev_version_file_read.close()
 
 if prev_version == version:
