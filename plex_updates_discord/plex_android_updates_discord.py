@@ -21,9 +21,9 @@ discord_headers = {'content-type': 'application/json'}
 if not os.path.exists("/tmp/plex_{}_last_post.txt".format(type)):
     with open("/tmp/plex_{}_last_post.txt".format(type), 'w'): pass
 
-get_plex_atv_updates = requests.get('https://forums.plex.tv/categories/release-announcements/0.json').json()
+get_plex_updates = requests.get('https://forums.plex.tv/categories/release-announcements/0.json').json()
 
-for entry in get_plex_atv_updates['Discussions']:
+for entry in get_plex_updates['Discussions']:
     if ('DiscussionID' in entry) and (entry['DiscussionID'] == discussID ):
         discuss_id = entry['LastCommentID']
         name_info = entry['Name']
