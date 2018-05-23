@@ -28,9 +28,9 @@ for entry in get_plex_updates['Discussions']:
         discuss_id = entry['LastCommentID']
         name_info = entry['Name']
 
-get_plex_atv_post = requests.get('https://forums.plex.tv/discussion/comment/{}/0.json'.format(discuss_id)).json()
+get_plex_post = requests.get('https://forums.plex.tv/discussion/comment/{}/0.json'.format(discuss_id)).json()
 
-for entry in get_plex_atv_post['Comments']:
+for entry in get_plex_post['Comments']:
     if ('CommentID' in entry) and (entry['CommentID'] == discuss_id):
         comment_info = entry['Body']
 
