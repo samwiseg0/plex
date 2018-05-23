@@ -2,6 +2,7 @@ import os
 import requests
 import sys
 import time
+from datetime import datetime, date
 
 time.sleep (5)
 
@@ -13,6 +14,8 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 discord_user = "User"
 discord_url = "https://discordapp.com/api/webhooks/XXXXXXXXXXX/XXXXXXXXX/slack"
 discord_headers = {'content-type': 'application/json'}
+
+current_time = datetime.now().strftime("%B %d, %Y %I:%M:%S %p %Z")
 
 if not os.path.exists("/tmp/plex_server_version.txt"):
     with open("/tmp/plex_server_version.txt", "w"): pass
@@ -74,11 +77,12 @@ else:
                          "text": items_added_norm_len},
                         {"title": "Items Fixed",
                          "color": "#00E500",
-                         "text": items_fixed_norm_len},
+                         "text": items_fixed_norm_len,
+                         "footer": "{}".format(current_time)},
                        ],
                 }
     #Send discord message
     r = requests.post(discord_url, headers=discord_headers, json=message)
-    print r.content
+    print (r.content)
     print ("Discord Notification Sent!")
     sys.exit(0)

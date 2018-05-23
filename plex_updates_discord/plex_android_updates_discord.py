@@ -2,6 +2,7 @@ import os
 import requests
 import sys
 import time
+from datetime import datetime, date
 
 time.sleep (5)
 
@@ -17,6 +18,8 @@ message_color = "#a4ca39"
 discord_user = "User"
 discord_url = "https://discordapp.com/api/webhooks/XXXXXXXXXXX/XXXXXXXXX/slack"
 discord_headers = {'content-type': 'application/json'}
+
+current_time = datetime.now().strftime("%B %d, %Y %I:%M:%S %p %Z")
 
 if not os.path.exists("/tmp/plex_{}_last_post.txt".format(type)):
     with open("/tmp/plex_{}_last_post.txt".format(type), 'w'): pass
@@ -60,11 +63,12 @@ else:
        "attachments": [
                       {"title": "{} - New Version Available".format(name_info),
                        "color": message_color,
-                       "text": comment_info_norm},
+                       "text": comment_info_norm,
+                       "footer": "{}".format(current_time)},
                      ],
                 }
     #Send discord message
     r = requests.post(discord_url, headers=discord_headers, json=message)
-    print r.content
+    print (r.content)
     print ("Discord Notification Sent!")
     sys.exit(0)
