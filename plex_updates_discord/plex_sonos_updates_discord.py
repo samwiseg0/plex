@@ -11,9 +11,9 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 # noinspection PyUnresolvedReferences
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-discussID = 190085
-type = "pmp"
-message_color = "#E5A00D"
+discussID = 311856
+type = "sonos"
+message_color = "#ffffff"
 
 discord_user = "User"
 discord_url = "https://discordapp.com/api/webhooks/XXXXXXXXXXX/XXXXXXXXX/slack"

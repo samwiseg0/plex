@@ -11,8 +11,8 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 # noinspection PyUnresolvedReferences
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-discussID = 190085
-type = "pmp"
+discussID = 305431
+type = "vr"
 message_color = "#E5A00D"
 
 discord_user = "User"

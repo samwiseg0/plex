@@ -11,9 +11,9 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 # noinspection PyUnresolvedReferences
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-discussID = 190085
-type = "pmp"
-message_color = "#E5A00D"
+discussID = 139642
+type = "ps3_ps4"
+message_color = "#003791"
 
 discord_user = "User"
 discord_url = "https://discordapp.com/api/webhooks/XXXXXXXXXXX/XXXXXXXXX/slack"
@@ -24,16 +24,16 @@ current_time = datetime.now().strftime("%B %d, %Y %I:%M:%S %p %Z")
 if not os.path.exists("/tmp/plex_{}_last_post.txt".format(type)):
     with open("/tmp/plex_{}_last_post.txt".format(type), 'w'): pass
 
-get_plex_updates = requests.get('https://forums.plex.tv/categories/release-announcements/0.json').json()
+get_plex_atv_updates = requests.get('https://forums.plex.tv/categories/release-announcements/0.json').json()
 
-for entry in get_plex_updates['Discussions']:
+for entry in get_plex_atv_updates['Discussions']:
     if ('DiscussionID' in entry) and (entry['DiscussionID'] == discussID ):
         comment_id = entry['LastCommentID']
         name_info = entry['Name']
 
-get_plex_post = requests.get('https://forums.plex.tv/discussion/comment/{}/0.json'.format(comment_id)).json()
+get_plex_atv_post = requests.get('https://forums.plex.tv/discussion/comment/{}/0.json'.format(comment_id)).json()
 
-for entry in get_plex_post['Comments']:
+for entry in get_plex_atv_post['Comments']:
     if ('CommentID' in entry) and (entry['CommentID'] == comment_id):
         comment_info = entry['Body']
 
@@ -54,6 +54,7 @@ if prev_comment == comment_id:
     print ("{} version remains unchanged... exiting".format(name_info))
     sys.exit(0)
 else:
+    name_info_norm = name_info.replace('&amp;', '&')
     prev_comment_file = open("/tmp/plex_{}_last_post.txt".format(type),"w+")
     prev_comment_file.write("{}".format(comment_id))
     prev_comment_file.close()
@@ -61,7 +62,7 @@ else:
     message = {
        "username": discord_user,
        "attachments": [
-                      {"title": "{} - New Version Available".format(name_info),
+                      {"title": "{} - New Version Available".format(name_info_norm),
                        "color": message_color,
                        "text": comment_info_norm,
                        "footer": "{}".format(current_time)},

@@ -28,35 +28,35 @@ get_plex_updates = requests.get('https://forums.plex.tv/categories/release-annou
 
 for entry in get_plex_updates['Discussions']:
     if ('DiscussionID' in entry) and (entry['DiscussionID'] == discussID ):
-        discuss_id = entry['LastCommentID']
+        comment_id = entry['LastCommentID']
         name_info = entry['Name']
 
-get_plex_post = requests.get('https://forums.plex.tv/discussion/comment/{}/0.json'.format(discuss_id)).json()
+get_plex_post = requests.get('https://forums.plex.tv/discussion/comment/{}/0.json'.format(comment_id)).json()
 
 for entry in get_plex_post['Comments']:
-    if ('CommentID' in entry) and (entry['CommentID'] == discuss_id):
+    if ('CommentID' in entry) and (entry['CommentID'] == comment_id):
         comment_info = entry['Body']
 
 try:
-    prev_disscuss_file_read = open("/tmp/plex_{}_last_post.txt".format(type),"r")
-    prev_disscuss = int(prev_disscuss_file_read.read())
-    prev_disscuss_file_read.close()
+    prev_comment_file_read = open("/tmp/plex_{}_last_post.txt".format(type),"r")
+    prev_comment = int(prev_comment_file_read.read())
+    prev_comment_file_read.close()
 except ValueError:
-    prev_disscuss_file = open("/tmp/plex_{}_last_post.txt".format(type),"w+")
-    prev_disscuss_file.write("1")
-    prev_disscuss_file.close()
+    prev_comment_file = open("/tmp/plex_{}_last_post.txt".format(type),"w+")
+    prev_comment_file.write("1")
+    prev_comment_file.close()
 
-prev_disscuss_file_read = open("/tmp/plex_{}_last_post.txt".format(type),"r")
-prev_disscuss = int(prev_disscuss_file_read.read())
-prev_disscuss_file_read.close()
+prev_comment_file_read = open("/tmp/plex_{}_last_post.txt".format(type),"r")
+prev_comment = int(prev_comment_file_read.read())
+prev_comment_file_read.close()
 
-if prev_disscuss == discuss_id:
+if prev_comment == comment_id:
     print ("{} version remains unchanged... exiting".format(name_info))
     sys.exit(0)
 else:
-    prev_disscuss_file = open("/tmp/plex_{}_last_post.txt".format(type),"w+")
-    prev_disscuss_file.write("{}".format(discuss_id))
-    prev_disscuss_file.close()
+    prev_comment_file = open("/tmp/plex_{}_last_post.txt".format(type),"w+")
+    prev_comment_file.write("{}".format(comment_id))
+    prev_comment_file.close()
     comment_info_norm = (comment_info[:2045] + '...') if len(comment_info) > 2045 else comment_info
     message = {
        "username": discord_user,
