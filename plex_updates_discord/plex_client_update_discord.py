@@ -2,6 +2,7 @@ import os
 import requests
 import sys
 import time
+from random import randint
 from datetime import datetime, date
 import tomd
 import re
@@ -34,18 +35,20 @@ device_list =   [
 
 #################### DO NOT EDIT BELOW THIS LINE ####################
 
+def cleanhtml(text):
+  cleanr = re.compile('<.*?>')
+  cleantext = re.sub(cleanr, '', text)
+  return cleantext
+
 for discourseID, deviceType, message_color in device_list:
-    time.sleep (5)
+    rand_sleep = (randint(5,10))
+    print ("Sleeping for {} seconds...".format(rand_sleep))
+    time.sleep (rand_sleep)
 
     message_color = message_color.lstrip('#')
     message_color = int(message_color, 16)
 
     current_time = datetime.now().strftime("%B %d, %Y %I:%M:%S %p %Z")
-
-    def cleanhtml(text):
-      cleanr = re.compile('<.*?>')
-      cleantext = re.sub(cleanr, '', text)
-      return cleantext
 
     if not os.path.exists("/tmp/plex_{}_last_post.txt".format(discourseID)):
         with open("/tmp/plex_{}_last_post.txt".format(discourseID), 'w'): pass
@@ -62,6 +65,12 @@ for discourseID, deviceType, message_color in device_list:
     author_username = posts[last_post]['username']
     created = posts[last_post]['created_at']
     avatar_template = posts[last_post]['avatar_template']
+    author_icon = posts[last_post]['avatar_template'].replace("{size}", "48")
+
+    if "http" not in author_icon:
+        author_icon = "https://forums.plex.tv{}".format(author_icon)
+    else:
+        pass
 
     try:
         prev_comment_file_read = open("/tmp/plex_{}_last_post.txt".format(discourseID),"r")
@@ -90,6 +99,7 @@ for discourseID, deviceType, message_color in device_list:
                 "author": {
                      "name": "{} - New Version Available".format(deviceType),
                      "url": "https://forums.plex.tv/t/{}/{}".format(discourseID, last_post),
+                     "icon_url": author_icon
                      },
                 "title": author_username,
                 "color": message_color,
@@ -102,4 +112,4 @@ for discourseID, deviceType, message_color in device_list:
         # Send notification
         r = requests.post(discord_url, headers=discord_headers, json=message)
         print (r.content)
-        print ("Discord Notification Sent!")
+        print ("Discord notification sent for device {}!".format(deviceType))
