@@ -59,12 +59,9 @@ for discourseID, deviceType, message_color in device_list:
     summary = tomd.convert(posts[last_post]['cooked'])
     summary = cleanhtml(summary).replace("&quot;", "\"").replace("&amp;", "&").replace("&apos;", "\'").replace("&#39;", "\'")
     summary = (summary[:2045] + '...') if len(summary) > 2045 else summary
-    #summary = bleach.clean(posts[last_post]['cooked'], tags=[], strip=True)
-    #summary = '\n\n'.join([x.strip() for x in summary.split('\n') if x.strip()])
     author_username = posts[last_post]['username']
     created = posts[last_post]['created_at']
     avatar_template = posts[last_post]['avatar_template']
-    username = posts[last_post]['cooked']
 
     try:
         prev_comment_file_read = open("/tmp/plex_{}_last_post.txt".format(discourseID),"r")
