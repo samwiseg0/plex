@@ -16,22 +16,22 @@ discord_headers = {'content-type': 'application/json'}
 
 # Comment out lines of devices you do not want to be notified about using --> #
 device_list =   [
-                (178323, "Plex for Alexa", "#31C4F3"),
-                (29115, "Plex for Android", "#a4ca39"),
-                (121357, "Plex for Apple TV", "#858487"),
-                (143389, "Plex for Chromecast", "#3cba54"),
-                (31524, "Plex for iOS", "#858487"),
-                (213558, "Plex for Kodi (add-on)", "#00f2ff"),
-                (120475, "Plex Media Player", "#E5A00D"),
-                (90217, "Plex for PlayStation 3 & PlayStation 4", "#003791"),
-                (9463, "Plex for Roku", "#6d3c97"),
-                (224615, "Plex for Samsung (2016+ televisions)", "#034ea2"),
-                (86563, "Plex for Smart TVs & TiVo", "#e5a00d"),
-                (228282, "Plex for Sonos", "#ffffff"),
-                (223132, "Plex VR", "#E5A00D"),
-                (20528, "Plex Web", "#e67817"),
-                (85265, "Plex for Xbox One", "#107c10")
-                ]
+    (178323, "Plex for Alexa", "#31C4F3","https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/alexa.png" ),
+    (29115, "Plex for Android", "#a4ca39", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/android.png"),
+    (121357, "Plex for Apple TV", "#858487", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/apple.png"),
+    (143389, "Plex for Chromecast", "#3cba54","https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/chrome.png"),
+    (31524, "Plex for iOS", "#858487", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/apple.png"),
+    (213558, "Plex for Kodi (add-on)", "#00f2ff","https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/kodi.png"),
+    (120475, "Plex Media Player", "#e67817","https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/plex.png"),
+    (90217, "Plex for PlayStation 3 & PlayStation 4", "#003791", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/ps.png"),
+    (9463, "Plex for Roku", "#6d3c97", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/roku.png"),
+    (224615, "Plex for Samsung (2016+ televisions)", "#034ea2", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/samsung.png"),
+    (86563, "Plex for Smart TVs & TiVo", "#e5a00d", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/tivo.png"),
+    (228282, "Plex for Sonos", "#ffffff", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/sonos.png"),
+    (223132, "Plex VR", "#e67817", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/plex.png"),
+    (20528, "Plex Web", "#e67817", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/plex.png"),
+    (85265, "Plex for Xbox One", "#107c10", "https://raw.githubusercontent.com/samwiseg00/plex/master/plex_updates_discord/images/xbox.png")
+    ]
 
 #################### DO NOT EDIT BELOW THIS LINE ####################
 
@@ -40,7 +40,7 @@ def cleanhtml(text):
   cleantext = re.sub(cleanr, '', text)
   return cleantext
 
-for discourseID, deviceType, message_color in device_list:
+for discourseID, deviceType, message_color, thumbnail in device_list:
     rand_sleep = (randint(5,10))
     print ("Sleeping for {} seconds...".format(rand_sleep))
     time.sleep (rand_sleep)
@@ -66,6 +66,12 @@ for discourseID, deviceType, message_color in device_list:
     created = posts[last_post]['created_at']
     avatar_template = posts[last_post]['avatar_template']
     author_icon = posts[last_post]['avatar_template'].replace("{size}", "48")
+
+    if len(summary) < 4:
+        print ("The post length for {} is less than 4 characters... skipping".format(deviceType))
+        break
+    else:
+        pass
 
     if "http" not in author_icon:
         author_icon = "https://forums.plex.tv{}".format(author_icon)
@@ -96,6 +102,9 @@ for discourseID, deviceType, message_color in device_list:
             "content": "{} - New Version Available".format(deviceType),
             "embeds": [
                 {
+                "thumbnail": {
+                     "url": thumbnail
+                     },
                 "author": {
                      "name": "{} - New Version Available".format(deviceType),
                      "url": "https://forums.plex.tv/t/{}/{}".format(discourseID, last_post),
