@@ -73,6 +73,23 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
     else:
         pass
 
+    version = ""
+
+    version_re = re.compile('(\d+\.)(\d+\.)(\d+)')
+    version_search = version_re.search(summary)
+    if version_search:
+        version = version_search.group()
+    else:
+        try:
+            version_re = re.compile('(\d+\.)(\d+)')
+            version_search = version_re.search(summary)
+            version = version_search.group()
+        except:
+            pass
+
+    if version:
+        version = ("v{}".format(version))
+
     if "http" not in author_icon:
         author_icon = "https://forums.plex.tv{}".format(author_icon)
     else:
@@ -99,14 +116,14 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
         prev_comment_file.close()
         message = {
             "username": discord_user,
-            "content": "{} - New Version Available".format(deviceType),
+            "content": "New Version - {} {}".format(deviceType, version),
             "embeds": [
                 {
                 "thumbnail": {
                      "url": thumbnail
                      },
                 "author": {
-                     "name": "{} - New Version Available".format(deviceType),
+                     "name": "New Version - {} {}".format(deviceType, version),
                      "url": "https://forums.plex.tv/t/{}/{}".format(discourseID, last_post),
                      "icon_url": author_icon
                      },
