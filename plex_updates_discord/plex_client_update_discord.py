@@ -123,11 +123,11 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
                      "url": thumbnail
                      },
                 "author": {
-                     "name": "New Version - {} {}".format(deviceType, version),
+                     "name": author_username,
                      "url": "https://forums.plex.tv/t/{}/{}".format(discourseID, last_post),
                      "icon_url": author_icon
                      },
-                "title": author_username,
+                "title": "New Version - {} {}".format(deviceType, version),
                 "color": message_color,
                 "url": "https://forums.plex.tv/t/{}/{}".format(discourseID, last_post),
                 "description": summary,
