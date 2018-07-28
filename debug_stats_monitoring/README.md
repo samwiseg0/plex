@@ -1,5 +1,5 @@
 # Collection of plex debug and stats scripts
-This is a collection of scripts and services that can be used to monitor the health of PMS. These scripts are designed to be used in conjunction with [Zabbix](https://www.zabbix.com/) although could be adapted to other monitoring platforms. Use Python 3.6+ this has not been tested on 2.7.
+This is a collection of scripts and services that can be used to monitor the health of PMS. These scripts are designed to be used in conjunction with [Zabbix](https://www.zabbix.com/). Although, could be adapted to other monitoring platforms. Use Python 3.6+ this has not been tested on 2.7.
 
 `plex_health_stats_operations.py` Is the main script used to poll and gather information.
 
