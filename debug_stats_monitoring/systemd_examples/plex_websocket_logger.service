@@ -1,0 +1,14 @@
+[Unit]
+Description=Plex Websocket Logger
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+Group=root
+ExecStart=/usr/bin/python3.6 /opt/plex/debug_stats_monitoring/plex_websocket_logger.py
+Type=idle
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
