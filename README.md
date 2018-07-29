@@ -8,6 +8,8 @@ I reworked the script so it's all in one. It has also been updated to work on th
 
 The new script only works with discord. I removed slack compatibility.
 
-Example:
+Sample:
+<img height="450" alt="Example" src="https://i.imgur.com/jDKMknz.png">
 
-<img width="450" alt="Example" src="https://i.imgur.com/DpuzHZL.png">
+## Plex debug and stats scripts
+This is a collection of scripts and services that can be used to monitor the health of PMS. These scripts are designed to be used in conjunction with [Zabbix](https://www.zabbix.com/)

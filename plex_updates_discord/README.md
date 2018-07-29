@@ -7,6 +7,6 @@ use python 3.6+
 
 Example:
 
-<img width="450" alt="Example" src="https://i.imgur.com/DpuzHZL.png">
+<img width="450" alt="Example" src="https://i.imgur.com/jDKMknz.png">
 
 Thanks to @JonnyWong16 for some of the code optimizations
