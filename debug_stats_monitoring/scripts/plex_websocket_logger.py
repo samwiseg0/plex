@@ -1,22 +1,15 @@
+################ DO NOT EDIT THE SCRIPT USE THE CONFIG FILE ################
+
 import websocket
 import os
 import sys
 import logging
 from logging.handlers import RotatingFileHandler
-
-################################ EDIT ###############################
-
-plex_token = 'XXXXXXXXXXXXXXXX'
-
-plex_websocket = 'wss://plex.domain.ltd:32400' #Use ws:// for non secure connections
-
-log_file = '/tmp/plex-websocket-debug.log'
-
-#################### DO NOT EDIT BELOW THIS LINE ####################
+import script_config
 
 log_formatter = logging.Formatter('%(asctime)s %(levelname)s - %(message)s')
 
-log_handler = RotatingFileHandler(log_file, mode='a', maxBytes=104857600,
+log_handler = RotatingFileHandler(script_config.websoc_log_file, mode='a', maxBytes=104857600,
                                  backupCount=3, encoding=None, delay=0)
 log_handler.setFormatter(log_formatter)
 log_handler.setLevel(logging.INFO)
@@ -26,9 +19,9 @@ websocket_log.setLevel(logging.INFO)
 
 websocket_log.addHandler(log_handler)
 
-os.chmod(log_file, 0o777)
+os.chmod(script_config.websoc_log_file, 0o777)
 
-header = ['X-Plex-Token: {}'.format(plex_token)]
+header = ['X-Plex-Token: {}'.format(script_config.plex_token)]
 
 try:
     import thread
@@ -50,7 +43,7 @@ def on_close(ws):
 
 if __name__ == "__main__":
     websocket.enableTrace(True)
-    ws = websocket.WebSocketApp('{}/:/websockets/notifications'.format(plex_websocket), header=header,
+    ws = websocket.WebSocketApp('{}/:/websockets/notifications'.format(script_config.plex_websocket), header=header,
                               on_message = on_message,
                               on_error = on_error,
                               on_close = on_close)

@@ -1,33 +1,21 @@
+################ DO NOT EDIT THE SCRIPT USE THE CONFIG FILE ################
+
 import os
 import requests
 import json
 import sys
 import argparse
 from argparse import RawTextHelpFormatter
-
-
-################################ EDIT ###############################
-
-tau_url = 'https://tautulli.domain.ltd'
-
-plex_url = 'https://plex.domain.ltd:32400'
-
-tau_api_key = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
-
-plex_token = 'XXXXXXXXXXXXXXXX'
-
-plex_log_location = '/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Logs/'
-
-#################### DO NOT EDIT BELOW THIS LINE ####################
+import script_config
 
 def get_activity(key):
-    payload = {'apikey': '{}'.format(tau_api_key), 'cmd': 'get_activity'}
-    get_tau_activity = requests.get('{}/api/v2'.format(tau_url), params=payload).json()['response']['data']
+    payload = {'apikey': '{}'.format(script_config.tau_api_key), 'cmd': 'get_activity'}
+    get_tau_activity = requests.get('{}/api/v2'.format(script_config.tau_url), params=payload).json()['response']['data']
     count = get_tau_activity['{}'.format(key)]
     return count
 
 def get_web_threads(type):
-    get_plex_threads = requests.get('{}/connections?X-Plex-Token={}'.format(plex_url, plex_token))
+    get_plex_threads = requests.get('{}/connections?X-Plex-Token={}'.format(script_config.plex_url, script_config.plex_token))
     if type == 'count':
         output = len(get_plex_threads.text.split('\n'))
     elif type == 'dump':
@@ -118,7 +106,7 @@ if __name__ == "__main__":
 
     elif opts.error_count:
         if opts.plex_server_log:
-            print (log_error_count('{}Plex Media Server.log'.format(plex_log_location)))
+            print (log_error_count('{}Plex Media Server.log'.format(script_config.plex_log_location)))
 
         elif not opts.file:
             print('ERROR: --file argument or --plex_server_log must be supplied')

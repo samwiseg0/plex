@@ -1,3 +1,5 @@
+################ DO NOT EDIT THE SCRIPT USE THE CONFIG FILE ################
+
 import logging
 import time
 import sys
@@ -7,24 +9,13 @@ import time
 import datetime
 import requests
 from time import sleep
-
-################################ EDIT ###############################
-
-plex_url = 'https://plex.domain.ltd:32400'
-
-plex_token = 'XXXXXXXXXXXXXXXX'
-
-log_location_path = '/tmp/webthread_output' #WITHOUT trailing slash
-
-interval = 30
-
-#################### DO NOT EDIT BELOW THIS LINE ####################
+import script_config
 
 def filecleanup():
     now = time.time()
     cutoff = now - (10800)
 
-    files = glob.glob('{}/plex-webthreads-*'.format(log_location_path))
+    files = glob.glob('{}/plex-webthreads-*'.format(script_config.log_location_path))
     for xfile in files:
             if os.path.isfile(xfile):
                     t = os.stat(xfile)
@@ -37,17 +28,17 @@ def filecleanup():
 
 while True:
     try:
-        get_plex_threads = requests.get('{}/connections?X-Plex-Token={}'.format(plex_url, plex_token))
+        get_plex_threads = requests.get('{}/connections?X-Plex-Token={}'.format(script_config.plex_url, script_config.plex_token))
         now = datetime.datetime.now().strftime('%Y-%m-%dT%H-%M-%S%p-{}'.format(time.localtime().tm_zone))
-        with open('{}/plex-webthreads-{}'.format(log_location_path, now), 'w+') as log_file:
+        with open('{}/plex-webthreads-{}'.format(script_config.log_location_path, now), 'w+') as log_file:
             print(get_plex_threads.text, file=log_file)
 
         print ('logged to file at {}! yay!'.format(now))
         filecleanup()
-        print ('Sleeping for {} Seconds...'.format(interval))
+        print ('Sleeping for {} Seconds...'.format(script_config.webthread_interval))
         print ('\n')
         sys.stdout.flush()
-        sleep(interval)
+        sleep(script_config.webthread_interval)
 
     except Exception as ex:
         filecleanup()

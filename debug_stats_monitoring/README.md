@@ -1,6 +1,15 @@
 # Collection of plex debug and stats scripts
 This is a collection of scripts and services that can be used to monitor the health of PMS. These scripts are designed to be used in conjunction with [Zabbix](https://www.zabbix.com/). Although, it could be adapted to other monitoring platforms. Use Python 3.6+ this has not been tested on 2.7.
 
+### Dependencies
+- A working [Zabbix](https://www.zabbix.com/) install
+- [Python3](https://www.python.org/downloads/)
+- Python dependencies `pip3 install -r requirements.txt`
+- [Tautulli](https://github.com/Tautulli/Tautulli)
+
+
+Make a copy of `script_config.example.py` to `script_config.py`.
+
 `plex_health_stats_operations.py` Is the main script used to poll and gather information.
 
 ```
@@ -52,6 +61,15 @@ Plex - Direct stream
 Plex - Direct play streams
 Errors present in Plex Media Server log
 ```
+### Triggers
+```
+Plex - HIGH number of websocket messages /s
+Plex - HIGH number of webthreads
+Plex - VERY HIGH number of webthreads
+Plex crash found in crash logs
+Plex UP/DOWN 
+```
+
 ### Notes:
 - This will take a bit of effort and time to get working so BE PATIENT!
 - In order to get the websocket per second metric you have to have the `plex_websocket_logger.py` running.
@@ -60,7 +78,7 @@ Errors present in Plex Media Server log
 ## Dashboard
 The above stats/scripts can be used in conjunction with Grafana to build a custom dashboard. Grafana specific scripts can be found here: https://github.com/DirtyCajunRice/grafana-scripts
 
-This dashboard is from a collection of sources. Zabbix and InfluxDB make up the dashboard below.
+The dashboard below uses Zabbix and InfluxDB as sources to provide the data for the graphs.
 
 ### Example Dashboard
 <img width="600" alt="Example" src="https://i.imgur.com/hqlTkfS.png">
