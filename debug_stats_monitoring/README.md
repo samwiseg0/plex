@@ -4,7 +4,7 @@ This is a collection of scripts and services that can be used to monitor the hea
 `plex_health_stats_operations.py` Is the main script used to poll and gather information.
 
 ```
-Plex helth/stats operations
+Plex health/stats operations
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -60,7 +60,7 @@ Errors present in Plex Media Server log
 ## Dashboard
 The above stats/scripts can be used in conjunction with Grafana to build a custom dashboard. Grafana specific scripts can be found here: https://github.com/DirtyCajunRice/grafana-scripts
 
-This dashboard is from a collection of sources. Zabbix and InfluxDB make up the dashboard below. 
+This dashboard is from a collection of sources. Zabbix and InfluxDB make up the dashboard below.
 
 ### Example Dashboard
 <img width="600" alt="Example" src="https://i.imgur.com/hqlTkfS.png">

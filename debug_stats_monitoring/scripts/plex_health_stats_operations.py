@@ -60,7 +60,7 @@ WEBTHREAD_SELECTOR = ['count', 'dump']
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description='Plex helth/stats operations', formatter_class=RawTextHelpFormatter)
+        description='Plex health/stats operations', formatter_class=RawTextHelpFormatter)
 
     parser.add_argument("--get_stream_count", type=str, choices=STREAM_SELECTOR,
         help='Get stream counts from Tautulli.\nChoices: (%(choices)s)')

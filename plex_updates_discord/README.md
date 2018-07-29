@@ -5,7 +5,7 @@ The new script only works with discord. I removed slack compatibility.
 
 use python 3.6+
 
-Example:
+Sample:
 
 <img width="450" alt="Example" src="https://i.imgur.com/jDKMknz.png">
 
