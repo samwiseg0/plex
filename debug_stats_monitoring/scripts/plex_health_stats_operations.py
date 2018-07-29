@@ -42,6 +42,14 @@ def log_error_count(file):
                 count = count + 1
         return count
 
+def get_folder_size(start_path):
+    total_size = 0
+    for dirpath, dirnames, filenames in os.walk(start_path):
+        for f in filenames:
+            fp = os.path.join(dirpath, f)
+            total_size += os.path.getsize(fp)
+    return total_size
+
 STREAM_SELECTOR = ['total', 'direct_stream', 'direct_play' , 'transcode']
 
 WEBTHREAD_SELECTOR = ['count', 'dump']
@@ -59,17 +67,20 @@ if __name__ == "__main__":
     parser.add_argument("--count_lines", action='store_true',
         help='Count lines in the specified file.')
 
-    parser.add_argument("--web_socket_search", type=str,
-        help='Search the websocket log file.')
-
     parser.add_argument("--error_count",  action='store_true',
         help='Count errors present in log file.')
+
+    parser.add_argument("--web_socket_search", type=str,
+        help='Search the websocket log file. --location must be specified')
+
+    parser.add_argument("--get_folder_size",  action='store_true',
+        help='Calcualte the size of a folder in bytes. --location must be specified')
 
     parser.add_argument("--plex_server_log",  action='store_true',
         help='Use plex server log ie. Plex Media Server.log')
 
-    parser.add_argument("--file", type=str,
-        help='Location of a log file')
+    parser.add_argument("--location", type=str,
+        help='Location of a log file or folder')
 
     opts = parser.parse_args()
 
@@ -92,27 +103,34 @@ if __name__ == "__main__":
         print (get_web_threads('dump'))
 
     elif opts.count_lines:
-        if not opts.file:
-            print('ERROR: --file argument must be supplied')
+        if not opts.location:
+            print('ERROR: --location argument must be supplied')
         else:
-            print (count_lines(opts.file))
+            print (count_lines(opts.location))
 
     elif opts.web_socket_search:
-        if not opts.file:
-            print('ERROR: --file argument must be supplied')
+        if not opts.location:
+            print('ERROR: --location argument must be supplied')
 
         else:
-            web_soc_search(opts.web_socket_search, opts.file)
+            web_soc_search(opts.web_socket_search, opts.location)
 
     elif opts.error_count:
         if opts.plex_server_log:
             print (log_error_count('{}Plex Media Server.log'.format(script_config.plex_log_location)))
 
-        elif not opts.file:
+        elif not opts.location:
             print('ERROR: --file argument or --plex_server_log must be supplied')
 
         else:
-            print (log_error_count(opts.file))
+            print (log_error_count(opts.location))
+
+    elif opts.get_folder_size:
+        if not opts.location:
+            print('ERROR: --location argument must be supplied')
+
+        else:
+            print (get_folder_size(opts.location))
 
     elif len(sys.argv) == 1:
         parser.print_help(sys.stderr)
