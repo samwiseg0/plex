@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-07-28T21:36:41Z</date>
+    <date>2018-07-29T18:55:19Z</date>
     <groups>
         <group>
             <name>Plex Media Server</name>
@@ -29,47 +29,6 @@
                 </application>
             </applications>
             <items>
-                <item>
-                    <name>Plex transcode folder size</name>
-                    <type>7</type>
-                    <snmp_community/>
-                    <snmp_oid/>
-                    <key>folder_size[/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode/]</key>
-                    <delay>60s</delay>
-                    <history>90d</history>
-                    <trends>365d</trends>
-                    <status>0</status>
-                    <value_type>0</value_type>
-                    <allowed_hosts/>
-                    <units>B</units>
-                    <snmpv3_contextname/>
-                    <snmpv3_securityname/>
-                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
-                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
-                    <snmpv3_authpassphrase/>
-                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
-                    <snmpv3_privpassphrase/>
-                    <params/>
-                    <ipmi_sensor/>
-                    <authtype>0</authtype>
-                    <username/>
-                    <password/>
-                    <publickey/>
-                    <privatekey/>
-                    <port/>
-                    <description/>
-                    <inventory_link>0</inventory_link>
-                    <applications>
-                        <application>
-                            <name>Plex Media Server</name>
-                        </application>
-                    </applications>
-                    <valuemap/>
-                    <logtimefmt/>
-                    <preprocessing/>
-                    <jmx_endpoint/>
-                    <master_item/>
-                </item>
                 <item>
                     <name>Plex Media Server Crash Logs</name>
                     <type>7</type>
@@ -295,7 +254,7 @@
                     <snmpv3_authpassphrase/>
                     <snmpv3_privprotocol>0</snmpv3_privprotocol>
                     <snmpv3_privpassphrase/>
-                    <params>last(&quot;plex_health_stats[--error_count,--plex_server_log]&quot;)</params>
+                    <params>last(&quot;plex_health_stats[--error_count,--plex_server_log,--dummy]&quot;)</params>
                     <ipmi_sensor/>
                     <authtype>0</authtype>
                     <username/>
@@ -326,7 +285,7 @@
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>plex_health_stats[--count_lines,--file,/tmp/plex-websocket-debug.log]</key>
+                    <key>plex_health_stats[--count_lines,--location,/tmp/plex-websocket-debug.log]</key>
                     <delay>25s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -372,7 +331,7 @@
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>plex_health_stats[--error_count,--plex_server_log]</key>
+                    <key>plex_health_stats[--error_count,--plex_server_log,--dummy]</key>
                     <delay>30s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -409,11 +368,52 @@
                     <master_item/>
                 </item>
                 <item>
+                    <name>Plex transcode folder size</name>
+                    <type>7</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>plex_health_stats[--get_folder_size,--location,/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode/]</key>
+                    <delay>60s</delay>
+                    <history>90d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>0</value_type>
+                    <allowed_hosts/>
+                    <units>B</units>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Plex Media Server</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
                     <name>Plex - Direct play streams</name>
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>plex_health_stats[--get_stream_count,direct_play]</key>
+                    <key>plex_health_stats[--get_stream_count,direct_play,--dummy]</key>
                     <delay>25s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -454,7 +454,7 @@
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>plex_health_stats[--get_stream_count,direct_stream]</key>
+                    <key>plex_health_stats[--get_stream_count,direct_stream,--dummy]</key>
                     <delay>25s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -495,7 +495,7 @@
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>plex_health_stats[--get_stream_count,total]</key>
+                    <key>plex_health_stats[--get_stream_count,total,--dummy]</key>
                     <delay>25s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -536,7 +536,7 @@
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>plex_health_stats[--get_stream_count,transcode]</key>
+                    <key>plex_health_stats[--get_stream_count,transcode,--dummy]</key>
                     <delay>25s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -577,7 +577,7 @@
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>plex_health_stats[--get_web_threads,count]</key>
+                    <key>plex_health_stats[--get_web_threads,count,--dummy]</key>
                     <delay>25s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
@@ -931,7 +931,7 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>(({Template Plex Media Server:plex_health_stats[--count_lines,--file,/tmp/plex-websocket-debug.log].avg(6m)})&gt;45)</expression>
+            <expression>(({Template Plex Media Server:plex_health_stats[--count_lines,--location,/tmp/plex-websocket-debug.log].avg(6m)})&gt;45)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Plex - HIGH number of websocket messages /s on {HOST.NAME}</name>
@@ -947,7 +947,7 @@
             <tags/>
         </trigger>
         <trigger>
-            <expression>(({Template Plex Media Server:plex_health_stats[--get_web_threads,count].avg(5m)})&gt;150)</expression>
+            <expression>(({Template Plex Media Server:plex_health_stats[--get_web_threads,count,--dummy].avg(5m)})&gt;150)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Plex - HIGH number of webthreads on {HOST.NAME}</name>
@@ -962,14 +962,14 @@
             <dependencies>
                 <dependency>
                     <name>Plex - VERY HIGH number of webthreads on {HOST.NAME}</name>
-                    <expression>(({Template Plex Media Server:plex_health_stats[--get_web_threads,count].avg(5m)})&gt;200)</expression>
+                    <expression>(({Template Plex Media Server:plex_health_stats[--get_web_threads,count,--dummy].avg(5m)})&gt;200)</expression>
                     <recovery_expression/>
                 </dependency>
             </dependencies>
             <tags/>
         </trigger>
         <trigger>
-            <expression>(({Template Plex Media Server:plex_health_stats[--get_web_threads,count].avg(5m)})&gt;200)</expression>
+            <expression>(({Template Plex Media Server:plex_health_stats[--get_web_threads,count,--dummy].avg(5m)})&gt;200)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Plex - VERY HIGH number of webthreads on {HOST.NAME}</name>
@@ -1041,7 +1041,7 @@
             <yaxismin>0.0000</yaxismin>
             <yaxismax>100.0000</yaxismax>
             <show_work_period>1</show_work_period>
-            <show_triggers>1</show_triggers>
+            <show_triggers>0</show_triggers>
             <type>0</type>
             <show_legend>1</show_legend>
             <show_3d>0</show_3d>
@@ -1055,17 +1055,41 @@
                 <graph_item>
                     <sortorder>0</sortorder>
                     <drawtype>0</drawtype>
+                    <color>6C59DC</color>
+                    <yaxisside>1</yaxisside>
+                    <calc_fnc>7</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template Plex Media Server</host>
+                        <key>plex_health_stats[--get_stream_count,total,--dummy]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>AC8C14</color>
+                    <yaxisside>1</yaxisside>
+                    <calc_fnc>7</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template Plex Media Server</host>
+                        <key>plex_health_stats[--get_stream_count,transcode,--dummy]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>2</sortorder>
+                    <drawtype>0</drawtype>
                     <color>1A7C11</color>
                     <yaxisside>1</yaxisside>
                     <calc_fnc>7</calc_fnc>
                     <type>0</type>
                     <item>
                         <host>Template Plex Media Server</host>
-                        <key>plex_health_stats[--get_stream_count,direct_play]</key>
+                        <key>plex_health_stats[--get_stream_count,direct_play,--dummy]</key>
                     </item>
                 </graph_item>
                 <graph_item>
-                    <sortorder>1</sortorder>
+                    <sortorder>3</sortorder>
                     <drawtype>0</drawtype>
                     <color>F63100</color>
                     <yaxisside>1</yaxisside>
@@ -1073,49 +1097,37 @@
                     <type>0</type>
                     <item>
                         <host>Template Plex Media Server</host>
-                        <key>plex_health_stats[--get_stream_count,direct_stream]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>2</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>2774A4</color>
-                    <yaxisside>1</yaxisside>
-                    <calc_fnc>7</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template Plex Media Server</host>
-                        <key>plex_health_stats[--get_web_threads,count]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>3</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>A54F10</color>
-                    <yaxisside>1</yaxisside>
-                    <calc_fnc>7</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template Plex Media Server</host>
-                        <key>plex_health_stats[--get_stream_count,total]</key>
+                        <key>plex_health_stats[--get_stream_count,direct_stream,--dummy]</key>
                     </item>
                 </graph_item>
                 <graph_item>
                     <sortorder>4</sortorder>
                     <drawtype>0</drawtype>
-                    <color>FC6EA3</color>
+                    <color>611F27</color>
                     <yaxisside>1</yaxisside>
                     <calc_fnc>7</calc_fnc>
                     <type>0</type>
                     <item>
                         <host>Template Plex Media Server</host>
-                        <key>plex_health_stats[--get_stream_count,transcode]</key>
+                        <key>plex_health_stats[--count_lines,--location,/tmp/plex-websocket-debug.log]</key>
                     </item>
                 </graph_item>
                 <graph_item>
                     <sortorder>5</sortorder>
                     <drawtype>0</drawtype>
-                    <color>6C59DC</color>
+                    <color>2774A4</color>
+                    <yaxisside>0</yaxisside>
+                    <calc_fnc>7</calc_fnc>
+                    <type>0</type>
+                    <item>
+                        <host>Template Plex Media Server</host>
+                        <key>plex_health_stats[--get_web_threads,count,--dummy]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>6</sortorder>
+                    <drawtype>0</drawtype>
+                    <color>A54F10</color>
                     <yaxisside>1</yaxisside>
                     <calc_fnc>7</calc_fnc>
                     <type>0</type>
@@ -1125,27 +1137,15 @@
                     </item>
                 </graph_item>
                 <graph_item>
-                    <sortorder>6</sortorder>
+                    <sortorder>7</sortorder>
                     <drawtype>0</drawtype>
-                    <color>AC8C14</color>
+                    <color>F230E0</color>
                     <yaxisside>1</yaxisside>
                     <calc_fnc>7</calc_fnc>
                     <type>0</type>
                     <item>
                         <host>Template Plex Media Server</host>
-                        <key>plex_health_stats[--count_lines,--file,/tmp/plex-websocket-debug.log]</key>
-                    </item>
-                </graph_item>
-                <graph_item>
-                    <sortorder>7</sortorder>
-                    <drawtype>0</drawtype>
-                    <color>611F27</color>
-                    <yaxisside>0</yaxisside>
-                    <calc_fnc>7</calc_fnc>
-                    <type>0</type>
-                    <item>
-                        <host>Template Plex Media Server</host>
-                        <key>proc.mem[,plex,,,rss]</key>
+                        <key>proc.mem[,plex,,,pmem]</key>
                     </item>
                 </graph_item>
             </graph_items>
