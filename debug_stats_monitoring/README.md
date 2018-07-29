@@ -13,7 +13,7 @@ Make a copy of `script_config.example.py` to `script_config.py`.
 `plex_health_stats_operations.py` Is the main script used to poll and gather information.
 
 ```
-Plex health/stats operations
+Plex health/stats script to aid in data gathering
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -24,11 +24,14 @@ optional arguments:
                         Get web threads info from the plex server.
                         Choices: (count, dump)
   --count_lines         Count lines in the specified file.
-  --web_socket_search WEB_SOCKET_SEARCH
-                        Search the websocket log file.
   --error_count         Count errors present in log file.
+  --web_socket_search WEB_SOCKET_SEARCH
+                        Search the websocket log file. --location must be specified
+  --get_folder_size     Calcualte the size of a folder in bytes. --location must be specified
   --plex_server_log     Use plex server log ie. Plex Media Server.log
-  --file FILE           Location of the a file
+  --location LOCATION   Location of a log file or folder
+  --dummy               Used as a placeholder to work around a zabbix limitation. This does nothing!
+  --version             Print version and exit.
 ```
 `plex_websocket_logger.py` will open and maintain a websocket connection to plex. It will log all messages to a log file and then rotate it out when it reaches 100 MB. It only keeps 3 rotated files.
 

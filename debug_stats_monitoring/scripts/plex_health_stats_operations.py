@@ -55,8 +55,8 @@ STREAM_SELECTOR = ['total', 'direct_stream', 'direct_play' , 'transcode']
 WEBTHREAD_SELECTOR = ['count', 'dump']
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description='Plex health/stats operations', formatter_class=RawTextHelpFormatter)
+    parser = argparse.ArgumentParser(prog='Plex health/stats operations',
+        description='Plex health/stats script to aid in data gathering', formatter_class=RawTextHelpFormatter)
 
     parser.add_argument("--get_stream_count", type=str, choices=STREAM_SELECTOR,
         help='Get stream counts from Tautulli.\nChoices: (%(choices)s)')
@@ -74,13 +74,19 @@ if __name__ == "__main__":
         help='Search the websocket log file. --location must be specified')
 
     parser.add_argument("--get_folder_size",  action='store_true',
-        help='Calcualte the size of a folder in bytes. --location must be specified')
+        help='Calculate the size of a folder in bytes. --location must be specified')
 
     parser.add_argument("--plex_server_log",  action='store_true',
         help='Use plex server log ie. Plex Media Server.log')
 
     parser.add_argument("--location", type=str,
         help='Location of a log file or folder')
+
+    parser.add_argument("--dummy",  action='store_true',
+        help='Used as a placeholder to work around a zabbix limitation. This does nothing!')
+
+    parser.add_argument('--version', action='version', version='%(prog)s v0.2',
+        help='Print version and exit.')
 
     opts = parser.parse_args()
 
