@@ -27,7 +27,7 @@ optional arguments:
   --error_count         Count errors present in log file.
   --web_socket_search WEB_SOCKET_SEARCH
                         Search the websocket log file. --location must be specified
-  --get_folder_size     Calcualte the size of a folder in bytes. --location must be specified
+  --get_folder_size     Calculate the size of a folder in bytes. --location must be specified
   --plex_server_log     Use plex server log ie. Plex Media Server.log
   --location LOCATION   Location of a log file or folder
   --dummy               Used as a placeholder to work around a zabbix limitation. This does nothing!
