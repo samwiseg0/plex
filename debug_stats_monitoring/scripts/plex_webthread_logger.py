@@ -5,7 +5,6 @@ import time
 import sys
 import os
 import glob
-import time
 import datetime
 import requests
 from time import sleep
@@ -13,7 +12,7 @@ import script_config
 
 def filecleanup():
     now = time.time()
-    cutoff = now - (10800)
+    cutoff = now - (3600)
 
     files = glob.glob('{}/plex-webthreads-*'.format(script_config.log_location_path))
     for xfile in files:
@@ -21,7 +20,7 @@ def filecleanup():
                     t = os.stat(xfile)
                     c = t.st_ctime
 
-                    # delete file if older than a 3 hours
+                    # delete file if older than a 1 hour
                     if c < cutoff:
                             os.remove(xfile)
     print ('File cleanup... done')
