@@ -9,7 +9,7 @@ import script_config
 
 log_formatter = logging.Formatter('%(asctime)s %(levelname)s - %(message)s')
 
-log_handler = RotatingFileHandler(script_config.websoc_log_file, mode='a', maxBytes=104857600,
+log_handler = RotatingFileHandler(script_config.websoc_log_file, mode='a', maxBytes=52428800,
                                  backupCount=3, encoding=None, delay=0)
 log_handler.setFormatter(log_formatter)
 log_handler.setLevel(logging.INFO)
