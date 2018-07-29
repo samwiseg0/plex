@@ -36,6 +36,8 @@ optional arguments:
 
 `plex_health_stats.conf` will need to be copied to where your zabbix agent config files are located. ie. `/etc/zabbix/zabbix_agentd.d/`
 
+`plex_crash_data_collector.py` will pull data from several sources and tar.gz them to one location. Includes PMS logs, PMS Crash folder, Web thread logs, and websocket logs. Using this in conjunction with monit will help with data collection in a crash/unresponsive event.
+
 `Template Plex Media Server.xml` is the template that can be imported to zabbix and then attached to the host that plex is running on.
 
 ### Items Monitored
@@ -61,14 +63,18 @@ Plex - Direct stream
 Plex - Direct play streams
 Errors present in Plex Media Server log
 ```
+
 ### Triggers
 ```
 Plex - HIGH number of websocket messages /s
 Plex - HIGH number of webthreads
 Plex - VERY HIGH number of webthreads
 Plex crash found in crash logs
-Plex UP/DOWN 
+Plex UP/DOWN
 ```
+
+### Monit
+Included is an example of a monit config file that will pull the logs from the various locations and put them all in one place. This also allows for complete crash/unresponsive automation.
 
 ### Notes:
 - This will take a bit of effort and time to get working so BE PATIENT!
