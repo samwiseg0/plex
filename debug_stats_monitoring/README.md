@@ -7,6 +7,11 @@ This is a collection of scripts and services that can be used to monitor the hea
 - Python dependencies `pip3 install -r requirements.txt`
 - [Tautulli](https://github.com/Tautulli/Tautulli)
 
+### Optional Dependencies
+- [Monit](https://mmonit.com/monit/) if you want to automate crash/unresponsive data gathering
+- [InfluxDB](https://docs.influxdata.com/influxdb/v1.5/introduction/installation/) see [dashboard](#dashboard) for more info.
+- [Grafana](http://docs.grafana.org/installation/) see [dashboard](#dashboard) for more info.
+- [Zabbix plugin for grafana](https://grafana.com/plugins/alexanderzobnin-zabbix-app) see the [dashboard](#dashboard) for more info.
 
 Make a copy of `script_config.example.py` to `script_config.py`.
 
@@ -79,7 +84,7 @@ Plex UP/DOWN
 ### Monit
 Included is an example of a monit config file that will pull the logs from the various locations and put them all in one place. This also allows for complete crash/unresponsive automation.
 
-### Notes:
+### Notes
 - This will take a bit of effort and time to get working so BE PATIENT!
 - In order to get the websocket per second metric you have to have the `plex_websocket_logger.py` running.
 - If there are other things you would like to see monitored feel free to open an issue.
