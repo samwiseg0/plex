@@ -6,7 +6,7 @@ After=network-online.target
 [Service]
 User=root
 Group=root
-ExecStart=/usr/bin/python3.6 /opt/plex/debug_stats_monitoring/plex_webthread_logger.py
+ExecStart=/usr/bin/python3.6 /opt/plex/debug_stats_monitoring/scripts/plex_webthread_logger.py
 Type=idle
 Restart=on-failure
 
