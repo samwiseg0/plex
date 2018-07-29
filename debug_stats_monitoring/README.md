@@ -33,7 +33,7 @@ optional arguments:
   --dummy               Used as a placeholder to work around a zabbix limitation. This does nothing!
   --version             Print version and exit.
 ```
-`plex_websocket_logger.py` will open and maintain a websocket connection to plex. It will log all messages to a log file and then rotate it out when it reaches 100 MB. It only keeps 3 rotated files.
+`plex_websocket_logger.py` will open and maintain a websocket connection to plex. It will log all messages to a log file and then rotate it out when it reaches 50 MB. It only keeps 3 rotated files.
 
 `plex_webthread_logger.py` will log a dump of current connections that are on the plex server.
 
