@@ -53,7 +53,7 @@ Plex - Direct play streams
 Errors present in Plex Media Server log
 ```
 ### Notes:
-- This will take a bit of effort and time to get working so BE PATIENT!.
+- This will take a bit of effort and time to get working so BE PATIENT!
 - In order to get the websocket per second metric you have to have the `plex_websocket_logger.py` running.
 - If there are other things you would like to see monitored feel free to open an issue.
 
