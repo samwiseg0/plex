@@ -20,4 +20,6 @@ log_location_path = '/tmp/webthread_output' #WITHOUT trailing slash
 
 webthread_interval = 30
 
+data_dump_location = '/plex/crashes'
+
 ##################################################
