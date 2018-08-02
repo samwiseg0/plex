@@ -48,6 +48,7 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
     #Sleep for a bit so we dont get soft banned
     rand_sleep = (randint(5,10))
     print ('Sleeping for {} seconds...'.format(rand_sleep))
+    sys.stdout.flush()
     time.sleep (rand_sleep)
 
     #Convert hex color to integer
@@ -102,6 +103,7 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
     if len(summary) < 4:
         #If the post is too short lets skip it
         print ('The post length for {} is less than 4 characters... skipping'.format(deviceType))
+        sys.stdout.flush()
         break
 
     else:
@@ -134,14 +136,18 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
     #Add the full path URL if its misssing
     if 'http' not in author_icon:
         author_icon = 'https://forums.plex.tv{}'.format(author_icon)
-
     else:
         pass
+
+    if not version:
+        title = 'A new version of {} has been released'.format(deviceType)
+    else:
+        title = '{} {} Released'.format(deviceType, version)
 
     #Check to see if the post number is the same as the cached one
     if prev_comment == last_post:
         print ('{} version remains unchanged... exiting'.format(deviceType))
-
+        sys.stdout.flush()
     else:
         #If not lets write it to the cache file
         prev_comment_file = open('/tmp/plex_{}_last_post.txt'.format(discourseID),'w+')
@@ -151,7 +157,7 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
         #Compose the json message we will send to discord
         message = {
             'username': discord_user,
-            'content': 'New Version - {} {}'.format(deviceType, version),
+            'content': title,
             'embeds': [
                 {
                 'thumbnail': {
@@ -162,7 +168,7 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
                      'url': 'https://forums.plex.tv/u/{}/summary'.format(author_username),
                      'icon_url': author_icon
                      },
-                'title': 'New Version - {} {}'.format(deviceType, version),
+                'title': title,
                 'color': message_color,
                 'url': 'https://forums.plex.tv/t/{}/{}'.format(discourseID, last_post),
                 'description': summary_limit,
@@ -174,3 +180,4 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
         r = requests.post(discord_url, headers=discord_headers, json=message)
         print (r.content)
         print ('Discord notification sent for device {}!'.format(deviceType))
+        sys.stdout.flush()
