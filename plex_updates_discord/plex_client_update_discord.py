@@ -45,17 +45,17 @@ def get_latest_post(category_id):
     return first_run_post_count
 
 for discourseID, deviceType, message_color, thumbnail in device_list:
-    #Sleep for a bit so we dont get soft banned
+    # Sleep for a bit so we dont get soft banned
     rand_sleep = (randint(5,10))
     print ('Sleeping for {} seconds...'.format(rand_sleep))
     sys.stdout.flush()
     time.sleep (rand_sleep)
 
-    #Convert hex color to integer
+    # Convert hex color to integer
     message_color = message_color.lstrip('#')
     message_color = int(message_color, 16)
 
-    #Check to see if the cache file exsists
+    # Check to see if the cache file exsists
     if not os.path.exists('/tmp/plex_{}_last_post.txt'.format(discourseID)):
         with open('/tmp/plex_{}_last_post.txt'.format(discourseID), 'w'): pass
 
@@ -64,32 +64,31 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
         prev_comment_file_read = open('/tmp/plex_{}_last_post.txt'.format(discourseID),'r')
         prev_comment = int(prev_comment_file_read.read())
         prev_comment_file_read.close()
-
     except ValueError:
-        #If the cache file does not exsist create it with the latest post number
+        # If the cache file does not exsist create it with the latest post number
         prev_comment_file = open('/tmp/plex_{}_last_post.txt'.format(discourseID),'w+')
         prev_comment_file.write('{}'.format(get_latest_post(discourseID)))
         prev_comment_file.close()
 
-    #Pull the integer stored in the cache file
+    # Pull the integer stored in the cache file
     prev_comment_file_read = open('/tmp/plex_{}_last_post.txt'.format(discourseID),'r')
     prev_comment = int(prev_comment_file_read.read())
     prev_comment_file_read.close()
 
-    #Get the laest json data for the post
+    # Get the laest json data for the post
     get_updates = requests.get('https://forums.plex.tv/t/{}/{}.json'.format(discourseID, prev_comment)).json()['post_stream']['posts']
 
     posts = {d['post_number']: d for d in get_updates}
 
     last_post = max(posts)
 
-    #Pull the summary and convert it to markdown
+    # Pull the summary and convert it to markdown
     summary = tomd.convert(posts[last_post]['cooked'])
 
-    #Unescape the summary and remove the HTML
+    # Unescape the summary and remove the HTML
     summary = html.unescape(cleanhtml(summary))
 
-    #Limit the sumary length so it fits in a discord message
+    # Limit the sumary length so it fits in a discord message
     summary_limit = summary[:2045] + (summary[2045:] and '...')
 
     author_username = posts[last_post]['username']
@@ -101,18 +100,17 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
     author_icon = posts[last_post]['avatar_template'].replace('{size}', '48')
 
     if len(summary) < 4:
-        #If the post is too short lets skip it
+        # If the post is too short lets skip it
         print ('The post length for {} is less than 4 characters... skipping'.format(deviceType))
         sys.stdout.flush()
         break
-
     else:
         pass
 
-    #Empty the version var
+    # Empty the version var
     version = ''
 
-    #Regex to pull a systematic version number
+    # Regex to pull a systematic version number
     version_re = re.compile('(\d+\.)(\d+\.)(\d+)')
     version_search = version_re.search(summary)
 
@@ -125,15 +123,14 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
             version_re = re.compile('(\d+\.)(\d+)')
             version_search = version_re.search(summary)
             version = version_search.group()
-
         except:
             pass
 
-    #Format the version number if we found one
+    # Format the version number if we found one
     if version:
         version = ('v{}'.format(version))
 
-    #Add the full path URL if its misssing
+    # Add the full path URL if its misssing
     if 'http' not in author_icon:
         author_icon = 'https://forums.plex.tv{}'.format(author_icon)
     else:
@@ -144,17 +141,17 @@ for discourseID, deviceType, message_color, thumbnail in device_list:
     else:
         title = '{} {} Released'.format(deviceType, version)
 
-    #Check to see if the post number is the same as the cached one
+    # Check to see if the post number is the same as the cached one
     if prev_comment == last_post:
         print ('{} version remains unchanged... exiting'.format(deviceType))
         sys.stdout.flush()
     else:
-        #If not lets write it to the cache file
+        # If not lets write it to the cache file
         prev_comment_file = open('/tmp/plex_{}_last_post.txt'.format(discourseID),'w+')
         prev_comment_file.write('{}'.format(last_post))
         prev_comment_file.close()
 
-        #Compose the json message we will send to discord
+        # Compose the json message we will send to discord
         message = {
             'username': discord_user,
             'content': title,

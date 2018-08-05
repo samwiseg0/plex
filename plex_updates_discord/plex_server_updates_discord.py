@@ -17,7 +17,7 @@ plex_token = 'xxxxxxxxx'
 if not os.path.exists('/tmp/plex_server_version'):
     with open('/tmp/plex_server_version', 'w'): pass
 
-#Sleep so we do no get soft banned
+# Sleep so we do no get soft banned
 time.sleep (8)
 
 get_plex_updates = requests.get('https://plex.tv/api/downloads/1.json?channel=plexpass&X-Plex-Token={}'.format(plex_token)).json()
@@ -38,13 +38,12 @@ items_added = ''.join([get_plex_updates['computer']['Linux']['items_added']])
 
 items_added = items_added.replace('\r\n', '\n\n')
 
-#Trim the message incase its larger than 2048
+# Trim the message incase its larger than 2048
 items_added = items_added[:2045] + (items_added[2045:] and '...')
 
-#Check to see if the string is empty
+# Check to see if the string is empty
 if (len(items_added)) <= 1:
     items_added = 'None'
-
 else:
     pass
 
@@ -52,20 +51,19 @@ items_fixed = ''.join([get_plex_updates['computer']['Linux']['items_fixed']])
 
 items_fixed = items_fixed.replace('\r\n', '\n\n')
 
-#Trim the message incase its larger than 2048
+# Trim the message incase its larger than 2048
 items_fixed = items_fixed[:2045] + (items_fixed[2045:] and '...')
 
-#Check to see if the string is empty
+# Check to see if the string is empty
 if (len(items_fixed)) <= 1:
     items_fixed = 'None'
-
 else:
     pass
 
-#Convert the release date for the discord message
+# Convert the release date for the discord message
 release_date_txt = time.strftime('%a, %b %d, %Y %H:%M:%S %Z', time.localtime(release_date))
 
-#Convert the release date for the discord timestamp
+# Convert the release date for the discord timestamp
 release_date = datetime.datetime.utcfromtimestamp(release_date).strftime('%Y-%m-%dT%H:%M:%SZ')
 
 try:
@@ -122,7 +120,7 @@ else:
             }
         ]
 }
-    #Send discord message
+    # Send discord message
     r = requests.post(discord_url, headers=discord_headers, json=message)
     print (r.content)
     print ('Discord Notification Sent!')
