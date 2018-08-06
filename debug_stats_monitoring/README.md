@@ -90,9 +90,21 @@ Included is an example of a monit config file that will pull the logs from the v
 - If there are other things you would like to see monitored feel free to open an issue.
 
 ## Dashboard
-The above stats/scripts can be used in conjunction with Grafana to build a custom dashboard. Grafana specific scripts can be found here: https://github.com/DirtyCajunRice/grafana-scripts
+The above stats/scripts can be used in conjunction with Grafana to build a custom dashboard. Grafana specific scripts can be found here: https://github.com/samwiseg00/grafana-scripts
 
 The dashboard below uses Zabbix and InfluxDB as sources to provide the data for the graphs.
+
+The json for the dashboard below can be found [here](https://github.com/samwiseg00/plex/tree/master/debug_stats_monitoring/dashboard).
+
+```sh
+sonarr.py --missing_days 7
+sonarr.py --today
+sonarr.py --queue
+radarr.py --missing_avl
+radarr.py --queue
+ombi.py --counts
+tautulli.py
+```
 
 ### Example Dashboard
 <img width="600" alt="Example" src="https://i.imgur.com/hqlTkfS.png">
