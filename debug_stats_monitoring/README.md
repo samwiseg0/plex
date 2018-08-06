@@ -96,7 +96,7 @@ The dashboard below uses Zabbix and InfluxDB as sources to provide the data for 
 
 The json for the dashboard below can be found [here](https://github.com/samwiseg00/plex/tree/master/debug_stats_monitoring/dashboard).
 
-Scripts used from DirtyCajunRice/grafana-scripts](https://github.com/DirtyCajunRice/grafana-scripts) to make up the dashboard:
+Scripts used from [DirtyCajunRice/grafana-scripts](https://github.com/DirtyCajunRice/grafana-scripts) to make up the dashboard:
 ```sh
 sonarr.py --missing_days 7
 sonarr.py --today
