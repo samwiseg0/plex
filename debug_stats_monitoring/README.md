@@ -99,7 +99,7 @@ The json for the dashboard below can be found [here](https://github.com/samwiseg
 Scripts used from [DirtyCajunRice/grafana-scripts](https://github.com/DirtyCajunRice/grafana-scripts) to make up the dashboard:
 ```sh
 sonarr.py --missing_days 7
-sonarr.py --today
+sonarr.py --future 1
 sonarr.py --queue
 radarr.py --missing_avl
 radarr.py --queue
