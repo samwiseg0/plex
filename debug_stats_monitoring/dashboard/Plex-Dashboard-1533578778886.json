@@ -1227,7 +1227,7 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
+        "w": 3,
         "x": 6,
         "y": 3
       },
@@ -1360,8 +1360,8 @@
       },
       "gridPos": {
         "h": 3,
-        "w": 4,
-        "x": 10,
+        "w": 3,
+        "x": 9,
         "y": 3
       },
       "hideTimeOverride": true,
@@ -1490,7 +1490,7 @@
       "gridPos": {
         "h": 3,
         "w": 3,
-        "x": 14,
+        "x": 12,
         "y": 3
       },
       "hideTimeOverride": true,
@@ -1645,7 +1645,7 @@
       "gridPos": {
         "h": 3,
         "w": 3,
-        "x": 17,
+        "x": 15,
         "y": 3
       },
       "hideTimeOverride": true,
@@ -1767,6 +1767,161 @@
       "thresholds": "100,120",
       "timeFrom": "24h",
       "title": "Plex - Direct Stream/s",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": true,
+      "colorValue": false,
+      "colors": [
+        "rgba(69, 69, 69, 0.2)",
+        "rgba(237, 129, 40, 0.89)",
+        "#d44a3a"
+      ],
+      "datasource": "${DS_ZABBIX}",
+      "decimals": 0,
+      "format": "none",
+      "gauge": {
+        "maxValue": 30,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 3,
+        "w": 2,
+        "x": 18,
+        "y": 3
+      },
+      "hideTimeOverride": true,
+      "id": 22,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": "1500",
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "#24c3ff",
+        "full": true,
+        "lineColor": "#24c3ff",
+        "show": true
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "dsType": "influxdb",
+          "functions": [
+            {
+              "def": {
+                "category": "Special",
+                "defaultParams": [
+                  "avg"
+                ],
+                "name": "consolidateBy",
+                "params": [
+                  {
+                    "name": "type",
+                    "options": [
+                      "avg",
+                      "min",
+                      "max",
+                      "sum",
+                      "count"
+                    ],
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "max"
+              ],
+              "text": "consolidateBy(max)"
+            }
+          ],
+          "group": {
+            "filter": "LINUX_SERVERS"
+          },
+          "groupBy": [],
+          "host": {
+            "filter": "PLEX_SERVER"
+          },
+          "item": {
+            "filter": "Plex - Conversions"
+          },
+          "measurement": "Tautulli",
+          "mode": 0,
+          "options": {
+            "showDisabledItems": false
+          },
+          "orderByTime": "ASC",
+          "policy": "default",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "current_streams"
+                ],
+                "type": "field"
+              }
+            ]
+          ],
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": [
+            {
+              "key": "type",
+              "operator": "=",
+              "value": "stream_count"
+            }
+          ],
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "thresholds": "1,2",
+      "timeFrom": "24h",
+      "title": "Plex - Convert",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -2153,6 +2308,338 @@
       "maxDataPoints": 1,
       "minSpan": 8,
       "showLegend": false,
+      "snapshotLocationData": [
+        {
+          "key": "AK",
+          "latitude": 61.385,
+          "longitude": -152.2683,
+          "name": "Alaska"
+        },
+        {
+          "key": "AL",
+          "latitude": 32.799,
+          "longitude": -86.8073,
+          "name": "Alabama"
+        },
+        {
+          "key": "AR",
+          "latitude": 34.9513,
+          "longitude": -92.3809,
+          "name": "Arkansas"
+        },
+        {
+          "key": "AS",
+          "latitude": 14.2417,
+          "longitude": -170.7197,
+          "name": "American Samoa"
+        },
+        {
+          "key": "AZ",
+          "latitude": 33.7712,
+          "longitude": -111.3877,
+          "name": "Arizona"
+        },
+        {
+          "key": "CA",
+          "latitude": 36.17,
+          "longitude": -119.7462,
+          "name": "California"
+        },
+        {
+          "key": "CO",
+          "latitude": 39.0646,
+          "longitude": -105.3272,
+          "name": "Colorado"
+        },
+        {
+          "key": "CT",
+          "latitude": 41.5834,
+          "longitude": -72.7622,
+          "name": "Connecticut"
+        },
+        {
+          "key": "DC",
+          "latitude": 38.8964,
+          "longitude": -77.0262,
+          "name": "Washington DC"
+        },
+        {
+          "key": "DE",
+          "latitude": 39.3498,
+          "longitude": -75.5148,
+          "name": "Delaware"
+        },
+        {
+          "key": "FL",
+          "latitude": 27.8333,
+          "longitude": -81.717,
+          "name": "Florida"
+        },
+        {
+          "key": "GA",
+          "latitude": 32.9866,
+          "longitude": -83.6487,
+          "name": "Georgia"
+        },
+        {
+          "key": "HI",
+          "latitude": 21.1098,
+          "longitude": -157.5311,
+          "name": "Hawaii"
+        },
+        {
+          "key": "IA",
+          "latitude": 42.0046,
+          "longitude": -93.214,
+          "name": "Iowa"
+        },
+        {
+          "key": "ID",
+          "latitude": 44.2394,
+          "longitude": -114.5103,
+          "name": "Idaho"
+        },
+        {
+          "key": "IL",
+          "latitude": 40.3363,
+          "longitude": -89.0022,
+          "name": "Illinois"
+        },
+        {
+          "key": "IN",
+          "latitude": 39.8647,
+          "longitude": -86.2604,
+          "name": "Indiana"
+        },
+        {
+          "key": "KS",
+          "latitude": 38.5111,
+          "longitude": -96.8005,
+          "name": "Kansas"
+        },
+        {
+          "key": "KY",
+          "latitude": 37.669,
+          "longitude": -84.6514,
+          "name": "Kentucky"
+        },
+        {
+          "key": "LA",
+          "latitude": 31.1801,
+          "longitude": -91.8749,
+          "name": "Louisiana"
+        },
+        {
+          "key": "MA",
+          "latitude": 42.2373,
+          "longitude": -71.5314,
+          "name": "Massachusetts"
+        },
+        {
+          "key": "MD",
+          "latitude": 39.0724,
+          "longitude": -76.7902,
+          "name": "Maryland"
+        },
+        {
+          "key": "ME",
+          "latitude": 44.6074,
+          "longitude": -69.3977,
+          "name": "Maine"
+        },
+        {
+          "key": "MI",
+          "latitude": 43.3504,
+          "longitude": -84.5603,
+          "name": "Michigan"
+        },
+        {
+          "key": "MN",
+          "latitude": 45.7326,
+          "longitude": -93.9196,
+          "name": "Minnisota"
+        },
+        {
+          "key": "MO",
+          "latitude": 38.4623,
+          "longitude": -92.302,
+          "name": "Missouri"
+        },
+        {
+          "key": "MP",
+          "latitude": 14.8058,
+          "longitude": 145.5505,
+          "name": "Northern Mariana Islands"
+        },
+        {
+          "key": "MS",
+          "latitude": 32.7673,
+          "longitude": -89.6812,
+          "name": "Mississippi"
+        },
+        {
+          "key": "MT",
+          "latitude": 46.9048,
+          "longitude": -110.3261,
+          "name": "Montana"
+        },
+        {
+          "key": "NC",
+          "latitude": 35.6411,
+          "longitude": -79.8431,
+          "name": "North Carolina"
+        },
+        {
+          "key": "ND",
+          "latitude": 47.5362,
+          "longitude": -99.793,
+          "name": "North Dakota"
+        },
+        {
+          "key": "NE",
+          "latitude": 41.1289,
+          "longitude": -98.2883,
+          "name": "Nebraska"
+        },
+        {
+          "key": "NH",
+          "latitude": 43.4108,
+          "longitude": -71.5653,
+          "name": "New Hampshire"
+        },
+        {
+          "key": "NJ",
+          "latitude": 40.314,
+          "longitude": -74.5089,
+          "name": "New Jersey"
+        },
+        {
+          "key": "NM",
+          "latitude": 34.8375,
+          "longitude": -106.2371,
+          "name": "New Mexico"
+        },
+        {
+          "key": "NV",
+          "latitude": 38.4199,
+          "longitude": -117.1219,
+          "name": "Nevada"
+        },
+        {
+          "key": "NY",
+          "latitude": 42.1497,
+          "longitude": -74.9384,
+          "name": "New York"
+        },
+        {
+          "key": "OH",
+          "latitude": 40.3736,
+          "longitude": -82.7755,
+          "name": "Ohio"
+        },
+        {
+          "key": "OK",
+          "latitude": 35.5376,
+          "longitude": -96.9247,
+          "name": "Oklahoma"
+        },
+        {
+          "key": "OR",
+          "latitude": 44.5672,
+          "longitude": -122.1269,
+          "name": "Oregon"
+        },
+        {
+          "key": "PA",
+          "latitude": 40.5773,
+          "longitude": -77.264,
+          "name": "Pennsylvania"
+        },
+        {
+          "key": "PR",
+          "latitude": 18.2766,
+          "longitude": -66.335,
+          "name": "Puerto Rico"
+        },
+        {
+          "key": "RI",
+          "latitude": 41.6772,
+          "longitude": -71.5101,
+          "name": "Rhode Island"
+        },
+        {
+          "key": "SC",
+          "latitude": 33.8191,
+          "longitude": -80.9066,
+          "name": "South Carolina"
+        },
+        {
+          "key": "SD",
+          "latitude": 44.2853,
+          "longitude": -99.4632,
+          "name": "South Dakota"
+        },
+        {
+          "key": "TN",
+          "latitude": 35.7449,
+          "longitude": -86.7489,
+          "name": "Tennessee"
+        },
+        {
+          "key": "TX",
+          "latitude": 31.106,
+          "longitude": -97.6475,
+          "name": "Texas"
+        },
+        {
+          "key": "UT",
+          "latitude": 40.1135,
+          "longitude": -111.8535,
+          "name": "Utah"
+        },
+        {
+          "key": "VA",
+          "latitude": 37.768,
+          "longitude": -78.2057,
+          "name": "Virginia"
+        },
+        {
+          "key": "VI",
+          "latitude": 18.0001,
+          "longitude": -64.8199,
+          "name": "U.S. Virgin Islands"
+        },
+        {
+          "key": "VT",
+          "latitude": 44.0407,
+          "longitude": -72.7093,
+          "name": "Vermont"
+        },
+        {
+          "key": "WA",
+          "latitude": 47.3917,
+          "longitude": -121.5708,
+          "name": "Washington"
+        },
+        {
+          "key": "WI",
+          "latitude": 44.2563,
+          "longitude": -89.6385,
+          "name": "Wisconsin"
+        },
+        {
+          "key": "WV",
+          "latitude": 38.468,
+          "longitude": -80.9696,
+          "name": "West Virginia"
+        },
+        {
+          "key": "WY",
+          "latitude": 42.7475,
+          "longitude": -107.2085,
+          "name": "Wyoming"
+        }
+      ],
       "stickyLabels": false,
       "targets": [
         {
@@ -2201,7 +2688,7 @@
         }
       ],
       "thresholds": "7,20",
-      "timeFrom": "33s",
+      "timeFrom": "1m",
       "timeShift": null,
       "title": "",
       "type": "grafana-worldmap-panel",
@@ -2213,7 +2700,7 @@
     {
       "columns": [],
       "datasource": "${DS_INFLUXDB}",
-      "fontSize": "100%",
+      "fontSize": "90%",
       "gridPos": {
         "h": 5,
         "w": 4,
@@ -2279,8 +2766,8 @@
           "colorMode": "row",
           "colors": [
             "#0a437c",
-            "rgba(237, 129, 40, 0.89)",
-            "#508642"
+            "rgb(168, 147, 4)",
+            "#629e51"
           ],
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
           "decimals": 0,
@@ -2321,6 +2808,20 @@
             [
               {
                 "params": [
+                  "quality"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [
+                  "Quality"
+                ],
+                "type": "alias"
+              }
+            ],
+            [
+              {
+                "params": [
                   "protocol_id"
                 ],
                 "type": "field"
@@ -2342,7 +2843,7 @@
           ]
         }
       ],
-      "timeFrom": "33s",
+      "timeFrom": "1m",
       "title": "Movies in Queue",
       "transform": "table",
       "type": "table"
@@ -2359,13 +2860,13 @@
       },
       "hideTimeOverride": true,
       "id": 9,
-      "interval": "32s",
+      "interval": "1m",
       "links": [
         {
           "targetBlank": true,
           "title": "Tautulli",
           "type": "absolute",
-          "url": "https://tautulli.domain.tld"
+          "url": "https://plexpy.dirtycajunrice.com/home"
         }
       ],
       "minSpan": 12,
@@ -2373,7 +2874,7 @@
       "scroll": true,
       "showHeader": true,
       "sort": {
-        "col": 5,
+        "col": 4,
         "desc": true
       },
       "styles": [
@@ -2528,7 +3029,7 @@
           "measurement": "Tautulli",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT \"name\", \"title\", \"quality\", \"video_decision\", \"quality_profile\", \"platform\", \"product_version\", \"location\" FROM \"Tautulli\" WHERE (\"type\" = 'Session') AND $timeFilter GROUP BY \"session_key\"",
+          "query": "SELECT \"name\", \"title\", \"quality\", \"video_decision\", \"quality_profile\", \"platform\", \"product_version\", \"location\" FROM \"Tautulli\" WHERE (\"type\" = 'Session') AND $timeFilter",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "table",
@@ -2607,7 +3108,7 @@
           ]
         }
       ],
-      "timeFrom": "33s",
+      "timeFrom": "1m",
       "title": "Users Online",
       "transform": "table",
       "type": "table"
@@ -2671,7 +3172,7 @@
           "alias": "DL",
           "colorMode": "row",
           "colors": [
-            "#cca300",
+            "#0a50a1",
             "rgba(237, 129, 40, 0.89)",
             "#24c3ff"
           ],
@@ -2704,14 +3205,7 @@
       "targets": [
         {
           "dsType": "influxdb",
-          "groupBy": [
-            {
-              "params": [
-                "sonarrId"
-              ],
-              "type": "tag"
-            }
-          ],
+          "groupBy": [],
           "limit": "",
           "measurement": "Sonarr",
           "orderByTime": "ASC",
@@ -2765,7 +3259,7 @@
           ]
         }
       ],
-      "timeFrom": "33s",
+      "timeFrom": "1m",
       "title": "TV Shows on Today",
       "transform": "table",
       "type": "table"
@@ -2791,7 +3285,7 @@
         }
       ],
       "minSpan": 8,
-      "pageSize": 5,
+      "pageSize": 6,
       "scroll": true,
       "showHeader": true,
       "sort": {
@@ -2809,7 +3303,7 @@
           "alias": "Name",
           "colorMode": "cell",
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
+            "#e24d42",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
@@ -2829,7 +3323,7 @@
           "alias": "",
           "colorMode": "row",
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
+            "#e24d42",
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
@@ -2913,7 +3407,7 @@
           ]
         }
       ],
-      "timeFrom": "33s",
+      "timeFrom": "1m",
       "timeShift": null,
       "title": "Missing TV Shows (Last 7 Days)",
       "transform": "table",
@@ -2980,19 +3474,20 @@
           "colorMode": "row",
           "colors": [
             "#0a437c",
-            "rgba(237, 129, 40, 0.89)",
+            "rgb(168, 147, 4)",
             "#629e51"
           ],
           "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
+          "decimals": 0,
           "mappingType": 1,
           "pattern": "T",
           "thresholds": [
             "-1",
             "1"
           ],
-          "type": "string",
-          "unit": "short"
+          "type": "number",
+          "unit": "short",
+          "valueMaps": []
         }
       ],
       "targets": [
@@ -3057,7 +3552,7 @@
           ]
         }
       ],
-      "timeFrom": "33s",
+      "timeFrom": "1m",
       "timeShift": null,
       "title": "TV Shows in Queue",
       "transform": "table",
@@ -3101,7 +3596,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Plex Dashboard",
+  "title": "Plex Server",
   "uid": "000000050",
-  "version": 158
+  "version": 179
 }
