@@ -34,6 +34,8 @@ optional arguments:
                         Search the websocket log file. --location must be specified
   --get_folder_size     Calculate the size of a folder in bytes. --location must be specified
   --plex_server_log     Use plex server log ie. Plex Media Server.log
+  --plex_conversion_queue
+                        Check the Plex conversion queue
   --location LOCATION   Location of a log file or folder
   --dummy               Used as a placeholder to work around a zabbix limitation. This does nothing!
   --version             Print version and exit.
@@ -79,6 +81,8 @@ Plex - HIGH number of webthreads
 Plex - VERY HIGH number of webthreads
 Plex crash found in crash logs
 Plex UP/DOWN
+Plex - HIGH number of Sync/Conversions
+Plex - Jobs possibly stuck in Sync/Conversions
 ```
 
 ### Monit
@@ -94,7 +98,7 @@ The above stats/scripts can be used in conjunction with Grafana to build a custo
 
 The dashboard below uses Zabbix and InfluxDB as sources to provide the data for the graphs.
 
-The json for the dashboard below can be found [here](https://github.com/samwiseg00/plex/tree/master/debug_stats_monitoring/dashboard).
+The json for the dashboard below can be found at [debug_stats_monitoring/dashboard](https://github.com/samwiseg00/plex/tree/master/debug_stats_monitoring/dashboard).
 
 Scripts used from [DirtyCajunRice/grafana-scripts](https://github.com/DirtyCajunRice/grafana-scripts) to make up the dashboard:
 ```sh
@@ -108,4 +112,6 @@ tautulli.py
 ```
 
 ### Example Dashboard
-<img width="600" alt="Example" src="https://i.imgur.com/hqlTkfS.png">
+<p align="center">
+<img width="600" alt="Example" src="https://i.imgur.com/Nk9hTtl.png">
+</p>
