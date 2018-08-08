@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-07-29T18:55:19Z</date>
+    <date>2018-08-08T19:01:39Z</date>
     <groups>
         <group>
             <name>Plex Media Server</name>
@@ -35,7 +35,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>log[/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Logs/Plex Crash Uploader.log]</key>
-                    <delay>20s</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -76,7 +76,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>log[/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Logs/Plex Media Server.log,(?i)(?:slow|error)]</key>
-                    <delay>20s</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -117,7 +117,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>log[/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Logs/PMS Plugin Logs/com.plexapp.agents.subzero.log,(?i)(?:Permission|error)]</key>
-                    <delay>20s</delay>
+                    <delay>1m</delay>
                     <history>1d</history>
                     <trends>0</trends>
                     <status>0</status>
@@ -286,7 +286,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>plex_health_stats[--count_lines,--location,/tmp/plex-websocket-debug.log]</key>
-                    <delay>25s</delay>
+                    <delay>30s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -372,8 +372,8 @@
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>plex_health_stats[--get_folder_size,--location,/var/lib/plexmediaserver/Library/Application Support/Plex Media Server/Cache/Transcode/]</key>
-                    <delay>60s</delay>
+                    <key>plex_health_stats[--get_folder_size,--location,/media-storage/all/workingdir/converted/plex/Transcode/]</key>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -414,7 +414,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>plex_health_stats[--get_stream_count,direct_play,--dummy]</key>
-                    <delay>25s</delay>
+                    <delay>30s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -455,7 +455,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>plex_health_stats[--get_stream_count,direct_stream,--dummy]</key>
-                    <delay>25s</delay>
+                    <delay>30s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -496,7 +496,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>plex_health_stats[--get_stream_count,total,--dummy]</key>
-                    <delay>25s</delay>
+                    <delay>30s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -537,7 +537,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>plex_health_stats[--get_stream_count,transcode,--dummy]</key>
-                    <delay>25s</delay>
+                    <delay>30s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -578,13 +578,54 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>plex_health_stats[--get_web_threads,count,--dummy]</key>
-                    <delay>25s</delay>
+                    <delay>30s</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
                     <value_type>0</value_type>
                     <allowed_hosts/>
                     <units>threads</units>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Plex Media Server</name>
+                        </application>
+                    </applications>
+                    <valuemap/>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
+                    <name>Plex - Conversions</name>
+                    <type>7</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>plex_health_stats[--plex_conversion_queue,--dummy,--dummy]</key>
+                    <delay>30s</delay>
+                    <history>90d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>0</value_type>
+                    <allowed_hosts/>
+                    <units>Conversions</units>
                     <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -931,15 +972,15 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>(({Template Plex Media Server:plex_health_stats[--count_lines,--location,/tmp/plex-websocket-debug.log].avg(6m)})&gt;45)</expression>
+            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,--dummy,--dummy].last(#5)})&gt;2)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Plex - HIGH number of websocket messages /s on {HOST.NAME}</name>
+            <name>Plex - HIGH number of Sync/Conversions on {HOST.NAME}</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
             <status>0</status>
-            <priority>2</priority>
+            <priority>3</priority>
             <description/>
             <type>0</type>
             <manual_close>1</manual_close>
@@ -966,6 +1007,22 @@
                     <recovery_expression/>
                 </dependency>
             </dependencies>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,--dummy,--dummy].last(5400)})&gt;=1)</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>Plex - Jobs possibly stuck in Sync/Conversions on {HOST.NAME}</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>2</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>1</manual_close>
+            <dependencies/>
             <tags/>
         </trigger>
         <trigger>
