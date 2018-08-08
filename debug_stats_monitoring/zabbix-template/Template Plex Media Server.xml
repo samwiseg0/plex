@@ -972,7 +972,7 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,--dummy,--dummy].last(#5)})&gt;2)</expression>
+            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,--dummy,--dummy].last(#5)})&gt;=2)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Plex - HIGH number of Sync/Conversions on {HOST.NAME}</name>
@@ -1010,7 +1010,7 @@
             <tags/>
         </trigger>
         <trigger>
-            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,--dummy,--dummy].last(5400)})&gt;=1)</expression>
+            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,--dummy,--dummy].min(90m)})&gt;=1)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Plex - Jobs possibly stuck in Sync/Conversions on {HOST.NAME}</name>
