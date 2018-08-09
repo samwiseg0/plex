@@ -59,16 +59,34 @@ def get_folder_size(start_path):
 
 
 def get_conversion_queue():
-    get_conversion_queue = requests.get('{}/status/sessions/background?X-Plex-Token={}'.format(script_config.plex_url, script_config.plex_token))
+
+    library_section_id = []
+
+    blacklisted_item = 0
+
+    get_conversion_queue = requests.get('{}/playQueues/1?X-Plex-Token={}'.format(script_config.plex_url, script_config.plex_token))
     conversion_queue = json.loads(json.dumps(xmltodict.parse(get_conversion_queue.content)))
+
     for items in conversion_queue.keys():
-        items_converting = conversion_queue[items]['@size']
-    return items_converting
+        items_converting = int(conversion_queue[items]['@size'])
+
+        if items_converting >= 2:
+            for source_library in conversion_queue[items]['Video']:
+                library_section_id.append(source_library['@librarySectionID'])
+            blacklisted_item =  any(lib in library_section_id for lib in script_config.sync_blacklist_libs)
+
+        elif items_converting == 1:
+                library_section_id = conversion_queue[items]['Video']['@librarySectionID']
+                blacklisted_item =  any(lib in library_section_id for lib in script_config.sync_blacklist_libs)
+
+    return items_converting, blacklisted_item
 
 
 STREAM_SELECTOR = ['total', 'direct_stream', 'direct_play' , 'transcode']
 
 WEBTHREAD_SELECTOR = ['count', 'dump']
+
+CONVERSION_SELECTOR = ['count', 'blacklist']
 
 
 if __name__ == "__main__":
@@ -84,25 +102,25 @@ if __name__ == "__main__":
     parser.add_argument("--count_lines", action='store_true',
         help='Count lines in the specified file.')
 
-    parser.add_argument("--error_count",  action='store_true',
+    parser.add_argument("--error_count", action='store_true',
         help='Count errors present in log file.')
 
     parser.add_argument("--web_socket_search", type=str,
         help='Search the websocket log file. --location must be specified')
 
-    parser.add_argument("--get_folder_size",  action='store_true',
+    parser.add_argument("--get_folder_size", action='store_true',
         help='Calculate the size of a folder in bytes. --location must be specified')
 
-    parser.add_argument("--plex_server_log",  action='store_true',
-        help='Use plex server log ie. Plex Media Server.log')
+    parser.add_argument("--plex_server_log", action='store_true',
+        help='Use plex server log ie. Plex Media Server.log.')
 
-    parser.add_argument("--plex_conversion_queue",  action='store_true',
-        help='Check the Plex conversion queue')
+    parser.add_argument("--plex_conversion_queue", type=str, choices=CONVERSION_SELECTOR,
+        help='Check the Plex conversion queue.\nChoices: (%(choices)s)')
 
     parser.add_argument("--location", type=str,
-        help='Location of a log file or folder')
+        help='Location of a log file or folder.')
 
-    parser.add_argument("--dummy",  action='store_true',
+    parser.add_argument("--dummy", action='store_true',
         help='Used as a placeholder to work around a zabbix limitation. This does nothing!')
 
     parser.add_argument('--version', action='version', version='%(prog)s v0.3',
@@ -151,8 +169,11 @@ if __name__ == "__main__":
         else:
             print (log_error_count(opts.location))
 
-    elif opts.plex_conversion_queue:
-        print (get_conversion_queue())
+    elif opts.plex_conversion_queue == 'count':
+        print (int(get_conversion_queue()[0]))
+
+    elif opts.plex_conversion_queue == 'blacklist':
+        print (int(get_conversion_queue()[1]))
 
     elif opts.get_folder_size:
         if not opts.location:
