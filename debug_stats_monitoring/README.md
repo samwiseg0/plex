@@ -15,7 +15,7 @@ This is a collection of scripts and services that can be used to monitor the hea
 
 Make a copy of `script_config.example.py` to `script_config.py`.
 
-## Scripts/Supoprting Files
+## Scripts/Supporting Files
 ### `plex_health_stats_operations.py`
 Is the main script used to poll and gather information.
 
@@ -46,7 +46,7 @@ optional arguments:
 - Notes:
   - `--plex_conversion_queue blacklist` This is used to detect sync items in queue that you may want blacklisted from certain libraries. The use case is blacklisting 4k library items from being synced. The script returns `0` for `False` and `1` for `True`.
   - `sync_blacklist_libs` Must be set in the `script_config.py` file. This is the library ID found in Plex.
-  
+
 ### `plex_websocket_logger.py`
 Opens and maintain a websocket connection to plex. It will log all messages to a log file and then rotate it out when it reaches 50 MB. It only keeps 3 rotated files.
 
