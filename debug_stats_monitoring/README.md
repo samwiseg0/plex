@@ -43,10 +43,12 @@ optional arguments:
   --dummy               Used as a placeholder to work around a zabbix limitation. This does nothing!
   --version             Print version and exit.
 ```
+- Notes:
+  - `--plex_conversion_queue blacklist` This is used to detect sync items in queue that you may want blacklisted from certain libraries. The use case is blacklisting 4k library items from being synced. The script returns `0` for `False` and `1` for `True`.
+  - `sync_blacklist_libs` Must be set in the `script_config.py` file. This is the library ID found in Plex.
+  
 ### `plex_websocket_logger.py`
 Opens and maintain a websocket connection to plex. It will log all messages to a log file and then rotate it out when it reaches 50 MB. It only keeps 3 rotated files.
-- Notes:
-  - `--plex_conversion_queue blacklist` This is to define which libraries are blacklisted from sync_items. he use case is blacklisting 4k library items from being synced
 
 ### `plex_webthread_logger.py`
 Logs a dump of current connections that are on the plex server.
