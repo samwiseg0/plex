@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-08-08T19:01:39Z</date>
+    <date>2018-08-09T03:02:43Z</date>
     <groups>
         <group>
             <name>Plex Media Server</name>
@@ -27,7 +27,7 @@
                 <application>
                     <name>Processes</name>
                 </application>
-            </applications>
+            </applications>å
             <items>
                 <item>
                     <name>Plex Media Server Crash Logs</name>
@@ -614,18 +614,61 @@
                     <master_item/>
                 </item>
                 <item>
-                    <name>Plex - Conversions</name>
+                    <name>Plex - Blacklisted sync</name>
                     <type>7</type>
                     <snmp_community/>
                     <snmp_oid/>
-                    <key>plex_health_stats[--plex_conversion_queue,--dummy,--dummy]</key>
-                    <delay>30s</delay>
+                    <key>plex_health_stats[--plex_conversion_queue,blacklist,--dummy]</key>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
                     <value_type>0</value_type>
                     <allowed_hosts/>
-                    <units>Conversions</units>
+                    <units/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <description/>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>Plex Media Server</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>Plex Blacklisted Sync</name>
+                    </valuemap>
+                    <logtimefmt/>
+                    <preprocessing/>
+                    <jmx_endpoint/>
+                    <master_item/>
+                </item>
+                <item>
+                    <name>Plex - Conversions</name>
+                    <type>7</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>plex_health_stats[--plex_conversion_queue,count,--dummy]</key>
+                    <delay>1m</delay>
+                    <history>90d</history>
+                    <trends>365d</trends>
+                    <status>0</status>
+                    <value_type>0</value_type>
+                    <allowed_hosts/>
+                    <units/>
                     <snmpv3_contextname/>
                     <snmpv3_securityname/>
                     <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -972,7 +1015,23 @@
     </templates>
     <triggers>
         <trigger>
-            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,--dummy,--dummy].last(#5)})&gt;=2)</expression>
+            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,blacklist,--dummy].min(5m)})=1)</expression>
+            <recovery_mode>0</recovery_mode>
+            <recovery_expression/>
+            <name>Plex - Blacklisted sync detected on {HOST.NAME}</name>
+            <correlation_mode>0</correlation_mode>
+            <correlation_tag/>
+            <url/>
+            <status>0</status>
+            <priority>4</priority>
+            <description/>
+            <type>0</type>
+            <manual_close>1</manual_close>
+            <dependencies/>
+            <tags/>
+        </trigger>
+        <trigger>
+            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,count,--dummy].min(10m)})&gt;=2)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
             <name>Plex - HIGH number of Sync/Conversions on {HOST.NAME}</name>
@@ -980,7 +1039,7 @@
             <correlation_tag/>
             <url/>
             <status>0</status>
-            <priority>3</priority>
+            <priority>2</priority>
             <description/>
             <type>0</type>
             <manual_close>1</manual_close>
@@ -1010,10 +1069,10 @@
             <tags/>
         </trigger>
         <trigger>
-            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,--dummy,--dummy].min(90m)})&gt;=1)</expression>
+            <expression>(({Template Plex Media Server:plex_health_stats[--plex_conversion_queue,count,--dummy].min(90m)})&gt;=1)</expression>
             <recovery_mode>0</recovery_mode>
             <recovery_expression/>
-            <name>Plex - Jobs possibly stuck in Sync/Conversions on {HOST.NAME}</name>
+            <name>Plex - Jobs stuck in Sync/Conversions on {HOST.NAME}</name>
             <correlation_mode>0</correlation_mode>
             <correlation_tag/>
             <url/>
@@ -1208,4 +1267,19 @@
             </graph_items>
         </graph>
     </graphs>
+    <value_maps>
+        <value_map>
+            <name>Plex Blacklisted Sync</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>No Blacklisted Sync Detected</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Blacklisted Sync Detected</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
 </zabbix_export>
