@@ -70,14 +70,14 @@ def get_conversion_queue():
     for items in conversion_queue.keys():
         items_converting = int(conversion_queue[items]['@size'])
 
-        if items_converting >= 2:
+        if items_converting == 1:
+            library_section_id = conversion_queue[items]['Video']['@librarySectionID']
+            blacklisted_item =  any(lib in library_section_id for lib in script_config.sync_blacklist_libs)
+
+        elif items_converting >= 2:
             for source_library in conversion_queue[items]['Video']:
                 library_section_id.append(source_library['@librarySectionID'])
             blacklisted_item =  any(lib in library_section_id for lib in script_config.sync_blacklist_libs)
-
-        elif items_converting == 1:
-                library_section_id = conversion_queue[items]['Video']['@librarySectionID']
-                blacklisted_item =  any(lib in library_section_id for lib in script_config.sync_blacklist_libs)
 
     return items_converting, blacklisted_item
 
