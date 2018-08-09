@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2018-08-09T03:02:43Z</date>
+    <date>2018-08-09T04:20:19Z</date>
     <groups>
         <group>
             <name>Plex Media Server</name>
@@ -27,7 +27,7 @@
                 <application>
                     <name>Processes</name>
                 </application>
-            </applications>å
+            </applications>
             <items>
                 <item>
                     <name>Plex Media Server Crash Logs</name>
@@ -240,7 +240,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>plex_errors_per_sec</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -332,7 +332,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>plex_health_stats[--error_count,--plex_server_log,--dummy]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -703,7 +703,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.mem[,plex,,,lck]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -747,7 +747,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.mem[,plex,,,lib]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -791,7 +791,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.mem[,plex,,,peak]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -835,7 +835,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.mem[,plex,,,pmem]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -879,7 +879,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.mem[,plex,,,rss]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -923,7 +923,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.mem[,plex,,,swap]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
@@ -967,7 +967,7 @@
                     <snmp_community/>
                     <snmp_oid/>
                     <key>proc.mem[,plex,,,vsize]</key>
-                    <delay>30s</delay>
+                    <delay>1m</delay>
                     <history>90d</history>
                     <trends>365d</trends>
                     <status>0</status>
