@@ -24,4 +24,6 @@ webthread_interval = 30
 
 data_dump_location = '/plex/crashes'
 
+sync_blacklist_libs = ['0', '0']
+
 ##################################################
