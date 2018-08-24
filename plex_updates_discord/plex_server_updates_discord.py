@@ -19,6 +19,14 @@ CACHE_PATH = '/tmp/pms_versions'
 
 #################### DO NOT EDIT BELOW THIS LINE ####################
 
+def utc_now_iso():
+    """Get current time in ISO format"""
+
+    utcnow = datetime.datetime.utcnow()
+
+    return utcnow.isoformat()
+
+
 def filecleanup(days):
     """Remove files older than X days"""
     now = time.time()
@@ -42,6 +50,8 @@ time.sleep(8)
 
 GET_PLEX_UPDATES = requests.get('https://plex.tv/api/downloads/1.json?channel=plexpass&X-Plex-Token={}'
                                 .format(PLEX_TOKEN)).json()
+
+NAME = ''.join([GET_PLEX_UPDATES['computer']['Linux']['name']])
 
 RELEASE_DATE = float(''.join(map(str, [GET_PLEX_UPDATES['computer']['Linux']['release_date']])))
 
@@ -83,35 +93,38 @@ VERSION_CACHE = os.path.exists("{}/{}".format(CACHE_PATH, VERSION))
 if not VERSION_CACHE:
 
     MESSAGE = {
-        'username': DIS_USER,
-        'embeds': [
+        "username": DIS_USER,
+        "embeds": [
             {
-                'title': 'New Plex Media Server Version Available - {}'.format(VERSION),
-                'color': 49135,
-                'url': 'https://www.plex.tv/media-server-downloads/#plex-media-server',
-                'fields': [
+                "title": "New Plex Media Server Version Available - {}".format(VERSION),
+                "color": 49135,
+                "url": "https://www.plex.tv/media-server-downloads/#plex-media-server",
+                "fields": [
                     {
-                        'name': 'Version',
-                        'value': VERSION,
-                        'inline': True
+                        "name": "Version",
+                        "value": VERSION,
+                        "inline": True
                     },
                     {
-                        'name': 'Release Date',
-                        'value': RELEASE_DATE_TXT,
-                        'inline': True
+                        "name": "Release Compile Date",
+                        "value": RELEASE_DATE_TXT,
+                        "inline": True
                     }
                     ]
                 },
             {
-                'title': 'Items Added',
-                'color': 15057920,
-                'description': ITEMS_ADDED
+                "title": "Items Added",
+                "color": 15057920,
+                "description": ITEMS_ADDED
             },
             {
-                'title': 'Items Fixed',
-                'color': 58624,
-                'description': ITEMS_FIXED,
-                'timestamp': RELEASE_DATE
+                "title": "Items Fixed",
+                "color": 58624,
+                "description": ITEMS_FIXED,
+                "footer": {
+                    "text": "Plex Server Updates | {}".format(NAME)
+                    },
+                "timestamp": utc_now_iso()
             }
         ]
         }
