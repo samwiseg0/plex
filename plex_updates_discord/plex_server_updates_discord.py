@@ -47,6 +47,7 @@ RELEASE_DATE = float(''.join(map(str, [GET_PLEX_UPDATES['computer']['Linux']['re
 
 VERSION = ''.join([GET_PLEX_UPDATES['computer']['Linux']['version']])
 
+
 ITEMS_ADDED = ''.join([GET_PLEX_UPDATES['computer']['Linux']['items_added']])
 
 ITEMS_ADDED = ITEMS_ADDED.replace('\r\n', '\n\n')
@@ -58,8 +59,6 @@ ITEMS_ADDED = ITEMS_ADDED[:2045] + (ITEMS_ADDED[2045:] and '...')
 if (len(ITEMS_ADDED)) <= 1:
     ITEMS_ADDED = 'None'
 
-else:
-    pass
 
 ITEMS_FIXED = ''.join([GET_PLEX_UPDATES['computer']['Linux']['items_fixed']])
 
@@ -72,8 +71,6 @@ ITEMS_FIXED = ITEMS_FIXED[:2045] + (ITEMS_FIXED[2045:] and '...')
 if (len(ITEMS_FIXED)) <= 1:
     ITEMS_FIXED = 'None'
 
-else:
-    pass
 
 #Convert the release date for the discord message
 RELEASE_DATE_TXT = time.strftime('%a, %b %d, %Y %H:%M:%S %Z', time.localtime(RELEASE_DATE))
