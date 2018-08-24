@@ -1,127 +1,139 @@
+#!/usr/bin/env python3
 import os
-import requests
 import sys
 import time
 import datetime
+import requests
 
 #################### EDIT ####################
 
-discord_user = 'Neron'
-discord_url = 'https://discordapp.com/api/webhooks/XXXXXXXXX/XXXXXXXXXXX'
-discord_headers = {'content-type': 'application/json'}
+DIS_USER = 'User'
 
-plex_token = 'xxxxxxxxx'
+DIS_URL = 'https://discordapp.com/api/webhooks/XXXXXXXXX/XXXXXXXXXXX'
+
+DIS_HEADERS = {'content-type': 'application/json'}
+
+PLEX_TOKEN = 'xxxxxxxxx'
+
+CACHE_PATH = '/tmp/pms_versions'
 
 #################### DO NOT EDIT BELOW THIS LINE ####################
 
-if not os.path.exists('/tmp/plex_server_version'):
-    with open('/tmp/plex_server_version', 'w'): pass
+def filecleanup(days):
+    """Remove files older than X days"""
+    now = time.time()
+    cutoff = now - (days * 86400)
 
-# Sleep so we do no get soft banned
-time.sleep (8)
+    files = os.listdir("{}".format(CACHE_PATH))
 
-get_plex_updates = requests.get('https://plex.tv/api/downloads/1.json?channel=plexpass&X-Plex-Token={}'.format(plex_token)).json()
+    for xfile in files:
+        if os.path.isfile("{}/".format(CACHE_PATH) + xfile):
+            t = os.stat("{}/".format(CACHE_PATH) + xfile)
+            c = t.st_ctime
 
-id = ''.join([get_plex_updates['computer']['Linux']['id']])
+            if c < cutoff:
+                os.remove("{}/".format(CACHE_PATH) + xfile)
 
-name = ''.join([get_plex_updates['computer']['Linux']['name']])
+    print("File cleanup... done")
 
-release_date = float(''.join(map(str, [get_plex_updates['computer']['Linux']['release_date']])))
 
-version = ''.join([get_plex_updates['computer']['Linux']['version']])
+#Sleep so we do no get soft banned
+time.sleep(8)
 
-requirements = ''.join([get_plex_updates['computer']['Linux']['requirements']])
+GET_PLEX_UPDATES = requests.get('https://plex.tv/api/downloads/1.json?channel=plexpass&X-Plex-Token={}'
+                                .format(PLEX_TOKEN)).json()
 
-extra_info = ''.join([get_plex_updates['computer']['Linux']['extra_info']])
+RELEASE_DATE = float(''.join(map(str, [GET_PLEX_UPDATES['computer']['Linux']['release_date']])))
 
-items_added = ''.join([get_plex_updates['computer']['Linux']['items_added']])
+VERSION = ''.join([GET_PLEX_UPDATES['computer']['Linux']['version']])
 
-items_added = items_added.replace('\r\n', '\n\n')
+ITEMS_ADDED = ''.join([GET_PLEX_UPDATES['computer']['Linux']['items_added']])
 
-# Trim the message incase its larger than 2048
-items_added = items_added[:2045] + (items_added[2045:] and '...')
+ITEMS_ADDED = ITEMS_ADDED.replace('\r\n', '\n\n')
 
-# Check to see if the string is empty
-if (len(items_added)) <= 1:
-    items_added = 'None'
+#Trim the message incase its larger than 2048
+ITEMS_ADDED = ITEMS_ADDED[:2045] + (ITEMS_ADDED[2045:] and '...')
+
+#Check to see if the string is empty
+if (len(ITEMS_ADDED)) <= 1:
+    ITEMS_ADDED = 'None'
+
 else:
     pass
 
-items_fixed = ''.join([get_plex_updates['computer']['Linux']['items_fixed']])
+ITEMS_FIXED = ''.join([GET_PLEX_UPDATES['computer']['Linux']['items_fixed']])
 
-items_fixed = items_fixed.replace('\r\n', '\n\n')
+ITEMS_FIXED = ITEMS_FIXED.replace('\r\n', '\n\n')
 
-# Trim the message incase its larger than 2048
-items_fixed = items_fixed[:2045] + (items_fixed[2045:] and '...')
+#Trim the message incase its larger than 2048
+ITEMS_FIXED = ITEMS_FIXED[:2045] + (ITEMS_FIXED[2045:] and '...')
 
-# Check to see if the string is empty
-if (len(items_fixed)) <= 1:
-    items_fixed = 'None'
+#Check to see if the string is empty
+if (len(ITEMS_FIXED)) <= 1:
+    ITEMS_FIXED = 'None'
+
 else:
     pass
 
-# Convert the release date for the discord message
-release_date_txt = time.strftime('%a, %b %d, %Y %H:%M:%S %Z', time.localtime(release_date))
+#Convert the release date for the discord message
+RELEASE_DATE_TXT = time.strftime('%a, %b %d, %Y %H:%M:%S %Z', time.localtime(RELEASE_DATE))
 
-# Convert the release date for the discord timestamp
-release_date = datetime.datetime.utcfromtimestamp(release_date).strftime('%Y-%m-%dT%H:%M:%SZ')
+#Convert the release date for the discord timestamp
+RELEASE_DATE = datetime.datetime.utcfromtimestamp(RELEASE_DATE).strftime('%Y-%m-%dT%H:%M:%SZ')
 
-try:
-    prev_version_file_read = open('/tmp/plex_server_version','r')
-    prev_version = prev_version_file_read.read()
-    prev_version_file_read.close()
-except ValueError:
-    prev_version_file = open('/tmp/plex_server_version','w+')
-    prev_version_file.write('1')
-    prev_version_file.close()
+VERSION_CACHE = os.path.exists("{}/{}".format(CACHE_PATH, VERSION))
 
-prev_version_file_read = open('/tmp/plex_server_version','r')
-prev_version = prev_version_file_read.read()
-prev_version_file_read.close()
+if not VERSION_CACHE:
 
-if prev_version == version:
-    print ('Plex Media Server version remains unchanged... exiting')
-    sys.exit(0)
-else:
-    prev_version_file = open('/tmp/plex_server_version','w+')
-    prev_version_file.write('{}'.format(version))
-    prev_version_file.close()
-
-    message = {
-        'username': discord_user,
+    MESSAGE = {
+        'username': DIS_USER,
         'embeds': [
             {
-            'title': 'New Plex Media Server Version Available - {}'.format(version),
-            'color': 49135,
-            'url': 'https://www.plex.tv/media-server-downloads/#plex-media-server',
-            'fields': [
-                {
-                'name': 'Version',
-                'value': version,
-                'inline': True
+                'title': 'New Plex Media Server Version Available - {}'.format(VERSION),
+                'color': 49135,
+                'url': 'https://www.plex.tv/media-server-downloads/#plex-media-server',
+                'fields': [
+                    {
+                        'name': 'Version',
+                        'value': VERSION,
+                        'inline': True
+                    },
+                    {
+                        'name': 'Release Date',
+                        'value': RELEASE_DATE_TXT,
+                        'inline': True
+                    }
+                    ]
                 },
-                {
-                'name': 'Release Date',
-                'value': release_date_txt,
-                'inline': True
-                }
-                ]
+            {
+                'title': 'Items Added',
+                'color': 15057920,
+                'description': ITEMS_ADDED
             },
             {
-            'title': 'Items Added',
-            'color': 15057920,
-            'description': items_added
-            },
-            {
-            'title': 'Items Fixed',
-            'color': 58624,
-            'description': items_fixed,
-            'timestamp': release_date
+                'title': 'Items Fixed',
+                'color': 58624,
+                'description': ITEMS_FIXED,
+                'timestamp': RELEASE_DATE
             }
         ]
-}
-    # Send discord message
-    r = requests.post(discord_url, headers=discord_headers, json=message)
-    print (r.content)
-    print ('Discord Notification Sent!')
+        }
+    #Send discord message
+    SENDER = requests.post(DIS_URL, headers=DIS_HEADERS, json=MESSAGE)
+    print(SENDER.content)
+    print('Discord Notification Sent!')
+
+    if not os.path.exists(CACHE_PATH):
+        os.makedirs(CACHE_PATH)
+
+    CREATE_VER_CACHE = open("{}/{}".format(CACHE_PATH, VERSION), 'w+')
+    CREATE_VER_CACHE.close()
+
+    filecleanup(90)
+
+    sys.exit(0)
+
+
+else:
+    print('Plex Media Server version remains unchanged... exiting')
     sys.exit(0)
