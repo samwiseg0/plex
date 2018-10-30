@@ -128,5 +128,5 @@ tautulli.py
 
 ### Example Dashboard
 <p align="center">
-<img width="600" alt="Example" src="https://i.imgur.com/Nk9hTtl.png">
+<img width="600" alt="Example" src="https://i.imgur.com/av8e0HP.png">
 </p>
