@@ -16,8 +16,6 @@ plex_websocket = 'wss://plex.domain.ltd:32400' #Use ws:// for NON SECURE connect
 
 websoc_log_file = '/tmp/plex-websocket-debug.log'
 
-plex_url = 'https://plex.domain.ltd'
-
 log_location_path = '/tmp/webthread_output' #WITHOUT trailing slash
 
 webthread_interval = 30
